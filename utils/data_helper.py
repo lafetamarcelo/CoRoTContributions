@@ -22,6 +22,7 @@ class reader:
             self,
             path=None,
             label=None,
+            index=None,
             feature=None ):
         """
         """
@@ -34,16 +35,13 @@ class reader:
             self.log.info("No custom label was provided!")
             self.log.info("Setting label as:" + label)
         hdu_data = ast.io.fits.open( path, memmap=True )
-        if feature is None:
-            return curve(hdu_featured=(feature, hdu_data), label=label)
-        else:
-            return curve(hdu=hdu_data, label=label)
+        return curve(hdu=hdu_data, label=label, index=index)
 
     def from_folder(
             self,
             folder=None,
-            feature=None,
-            label=None ):
+            label=None,
+            index=None ):
         """
         """
         if folder is None:
@@ -58,8 +56,6 @@ class reader:
         self.log.info("Reading {} curve packages...".format(len(files)))
         for file_name in files:
             hdu_data = ast.io.fits.open( os.path.join(folder, file_name), memmap=True )
-            if feature is None:
-                curves.append( curve(hdu=hdu_data, label=label) )
-            else:
-                curves.append( curve(hdu_featured=(feature, hdu_data), label=label) )
+            curves.append( 
+                curve(hdu=hdu_data, label=label, index=index) )
         return curves
