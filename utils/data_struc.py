@@ -48,7 +48,7 @@ class curve:
         self.labeler = label
         index = 3 if index is None else index + 1
         if hdu is not None:
-            self.from_file = "HDU "
+            self.from_file = "HDU"
             self.raw_table = Table.read(hdu[index], memmap=True).to_pandas()
             self.feature_list = self.raw_table.keys()
             self.julian_to_stdtime()

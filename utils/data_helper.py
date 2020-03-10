@@ -37,6 +37,28 @@ class reader:
         hdu_data = ast.io.fits.open( path, memmap=True )
         return curve(hdu=hdu_data, label=label, index=index)
 
+    def list_features(
+            self,
+            folders=None ):
+        """
+        """
+        if folders is None:
+            self.log.info("Please provide the folder path:")
+            folders = input()
+        curves = list()
+        for folder in folders:
+            folder = os.path.abspath(folder)
+            files = os.listdir(folder)
+            for file in files:
+                curve = { "label": folder, "attr": list() }
+                hdu_data = ast.io.fits.open( os.path.join(folder, file), memmap=True )
+                for index in [1,2,3]:
+                    raw_table = Table.read(hdu_data[index], memmap=True)
+                    curve["attr"].append( raw_table.colnames )
+                curves.append( curve )
+        return curves
+
+
     def from_folder(
             self,
             folder=None,
