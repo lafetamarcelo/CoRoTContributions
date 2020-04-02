@@ -1,2 +1,2 @@
-sphinx-copybutton>=1.8
+sphinx-copybutton>=0.2
 nbsphinx>=0.5
