@@ -1,4 +1,8 @@
 *__pycache__*
-*.gz
 .vscode/
 database/
+
+*.gz
+*.pkl
+*.mat
+*.html

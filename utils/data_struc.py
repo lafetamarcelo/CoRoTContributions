@@ -1,3 +1,10 @@
+"""
+    
+    This module gathers all the custom data 
+    structures created to replace the *.fits*
+    format provided by the 
+"""
+
 import os
 import julian
 import logging
@@ -25,7 +32,7 @@ except:
     pass
 
 
-class curve:
+class Curve:
     """
         The ligth curve object.
     """
