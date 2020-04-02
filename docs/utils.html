@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>utils Package &mdash; CRT Contrib 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="CoRoTContributions" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CRT Contrib
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Reading and Plotting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html">Read the <em>.fits</em> raw data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Preprocessing-data">Preprocessing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Generation-algorithms">Generation algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Save-the-pre-processed-data">Save the pre-processed data</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Feature Engineering</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html">Reading the data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Building-Time-Series-Frequency-Analysis">Building Time Series Frequency Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Creating-curves-spectrograms">Creating curves spectrograms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Automate-generation-algorithms">Automate generation algorithms</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">CoRoTContributions</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">utils Package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils">Intro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.data_helper">Data helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.data_struc">Data structure</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CRT Contrib</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">CoRoTContributions</a> &raquo;</li>
+        
+      <li>utils Package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="utils-package">
+<h1>utils Package<a class="headerlink" href="#utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-utils">
+<span id="intro"></span><h2>Intro<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">copyright</dt>
+<dd class="field-odd"><p>2010 Pallets</p>
+</dd>
+<dt class="field-even">license</dt>
+<dd class="field-even"><p>BSD-3-Clause</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="module-utils.data_helper">
+<span id="data-helper"></span><h2>Data helper<a class="headerlink" href="#module-utils.data_helper" title="Permalink to this headline">¶</a></h2>
+<p>This module is responsible to read the <em>.fits</em> files and return the 
+readed data as a <a class="reference internal" href="#utils.data_struc.Curve" title="utils.data_struc.Curve"><code class="xref py py-class docutils literal notranslate"><span class="pre">Curve</span></code></a> objects, 
+which is a more suitable format to read the data. Or one might choose 
+to only receive the  data in a simple type as possible such as lists 
+and dictionaries, thus by chosing this method, one will loose the 
+hability to use the inherited computing pre processing features from 
+the <a class="reference internal" href="#utils.data_struc.Curve" title="utils.data_struc.Curve"><code class="xref py py-class docutils literal notranslate"><span class="pre">Curve</span></code></a> format.</p>
+<dl class="class">
+<dt id="utils.data_helper.Reader">
+<em class="property">class </em><code class="sig-prename descclassname">utils.data_helper.</code><code class="sig-name descname">Reader</code><a class="headerlink" href="#utils.data_helper.Reader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The reader module is responsible for reading the raw <em>.fits</em> files
+and provide the data in a more friendly data structure for the python
+environment. It supports both unique <em>.fits</em> files such as a batch
+processing approach, using folders filled with several <em>.fits</em> files.</p>
+<p>As simple as it is to call a class, the reader package has no usage
+complication. For one to import and use it’s methods, it is only 
+necessary to do like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">utils.data_helper</span> <span class="k">as</span> <span class="nn">dh</span>
+<span class="n">myReader</span> <span class="o">=</span> <span class="n">dh</span><span class="o">.</span><span class="n">Reader</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition-retrieved-data-structure admonition">
+<p class="admonition-title">Retrieved data structure</p>
+<p>One must understand that the retrieved data will be or 
+<a class="reference internal" href="#utils.data_struc.Curve" title="utils.data_struc.Curve"><code class="xref py py-class docutils literal notranslate"><span class="pre">Curve</span></code></a> objects or 
+they will be composed of simple <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">dict</span></code> outputs.
+All methods have a particular parameter, with default 
+<code class="docutils literal notranslate"><span class="pre">simple_out=False</span></code> thence returning the data as 
+<a class="reference internal" href="#utils.data_struc.Curve" title="utils.data_struc.Curve"><code class="xref py py-class docutils literal notranslate"><span class="pre">Curve</span></code></a>. If one defines the 
+parameter <code class="docutils literal notranslate"><span class="pre">simple_out=True</span></code>, one will receive the obtained data 
+as dictionaries of indexed curves in lists, wich is not advised.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.1: </span>The <cite>from_file</cite> and <cite>from_folder</cite> methods where added.</p>
+</div>
+<dl class="method">
+<dt id="utils.data_helper.Reader.from_file">
+<code class="sig-name descname">from_file</code><span class="sig-paren">(</span><em class="sig-param">path=None</em>, <em class="sig-param">label=None</em>, <em class="sig-param">index=None</em>, <em class="sig-param">feature=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_helper.Reader.from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the white light curve from the provided <em>.fits</em> file, and
+label this curve with the provided label (or with the folder
+name, if <cite>label=None</cite>) and return the data_sctruc.Curve.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – Paths to the desired <em>.fits</em> file</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – The label for the returned curve</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – The HUD table index</p></li>
+<li><p><strong>feature</strong> (<em>str</em>) – The light curve specific feature name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The specific feature of light curve in more suitable format</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#utils.data_struc.Curve" title="utils.data_struc.Curve">data_struc.Curve</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.data_helper.Reader.from_folder">
+<code class="sig-name descname">from_folder</code><span class="sig-paren">(</span><em class="sig-param">folder=None</em>, <em class="sig-param">label=None</em>, <em class="sig-param">index=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_helper.Reader.from_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the white light curve of each <em>.fits</em> file presented inside 
+the provided folder, label each one or with the provided label, 
+or with the folder name, and return a list with one data_struc.Curve
+variable for each <em>.fits</em> file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder</strong> (<em>str</em>) – Paths to the folder with the <em>.fits</em> files</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – The label for the returned light curves</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – The HUD table index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of data_struc.Curve</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.data_helper.Reader.from_txt">
+<code class="sig-name descname">from_txt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_helper.Reader.from_txt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="utils.data_helper.Reader.list_features">
+<code class="sig-name descname">list_features</code><span class="sig-paren">(</span><em class="sig-param">folders=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_helper.Reader.list_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get only the features list, for each <em>.fits</em> curve file,
+inside the folders list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>folders</strong> (<em>list</em>) – Paths to the folders with the <em>.fits</em></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list with features available for each <em>.fits</em> found</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.data_struc">
+<span id="data-structure"></span><h2>Data structure<a class="headerlink" href="#module-utils.data_struc" title="Permalink to this headline">¶</a></h2>
+<p>This module gathers all the custom data 
+structures created to replace the <em>.fits</em>
+format provided by the</p>
+<dl class="class">
+<dt id="utils.data_struc.Curve">
+<em class="property">class </em><code class="sig-prename descclassname">utils.data_struc.</code><code class="sig-name descname">Curve</code><span class="sig-paren">(</span><em class="sig-param">hdu=None</em>, <em class="sig-param">index=None</em>, <em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_struc.Curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The ligth curve object.</p>
+<dl class="method">
+<dt id="utils.data_struc.Curve.index_tables">
+<code class="sig-name descname">index_tables</code><span class="sig-paren">(</span><em class="sig-param">index=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_struc.Curve.index_tables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="utils.data_struc.Curve.julian_to_stdtime">
+<code class="sig-name descname">julian_to_stdtime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_struc.Curve.julian_to_stdtime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="utils.data_struc.Curve.show_feature">
+<code class="sig-name descname">show_feature</code><span class="sig-paren">(</span><em class="sig-param">feature=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_struc.Curve.show_feature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="CoRoTContributions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Marcelo Lima
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
