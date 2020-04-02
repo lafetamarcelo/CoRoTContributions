@@ -1,6 +1,7 @@
 *__pycache__*
 .vscode/
 database/
+temp/
 
 *.gz
 *.pkl
