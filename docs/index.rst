@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to CoRoT Contribution's documentation!
-============================================
+==============================================
 
 Here we present the summary results and developments of the project called
 A Data Analysis Pipeline for the CoRoT Light Curve Data, supported by NSEE
