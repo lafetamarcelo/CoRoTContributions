@@ -8,10 +8,12 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to CRT Contrib’s documentation! &mdash; CRT Contrib 0.1 documentation</title>
+  <title>Welcome to CoRoT Contribution’s documentation! &mdash; CoRoT Contributions</title>
   
 
   
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
   
   
   
@@ -30,7 +32,6 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -56,9 +57,12 @@
           
 
           
-            <a href="#" class="icon icon-home"> CRT Contrib
+            <a href="#" class="icon icon-home"> Contributions
           
 
+          
+            
+            <img src="_static/corot_logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -117,7 +121,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">CRT Contrib</a>
+          <a href="#">Contributions</a>
         
       </nav>
 
@@ -148,7 +152,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Welcome to CRT Contrib’s documentation!</li>
+      <li>Welcome to CoRoT Contribution’s documentation!</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -191,8 +195,165 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="welcome-to-crt-contrib-s-documentation">
-<h1>Welcome to CRT Contrib’s documentation!<a class="headerlink" href="#welcome-to-crt-contrib-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="welcome-to-corot-contribution-s-documentation">
+<h1>Welcome to CoRoT Contribution’s documentation!<a class="headerlink" href="#welcome-to-corot-contribution-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Here we present the summary results and developments of the project called
+A Data Analysis Pipeline for the CoRoT Light Curve Data, supported by NSEE
+and FAPESP. The pipeline major three specific topics that will allow any
+user with basic knowledge in Python to reproduce the analysis.</p>
+<p>First we will present an <strong>introduction</strong> on the CoRoT project and it’s objectives
+for contextualization. The <strong>problem</strong> for this research is then presented, to make it
+clear the objectives of this work. And after we will present the proposed <strong>pipeline</strong>
+in it’s major groups, as an overview of the high level steps to get from the raw
+collected data, to the machine learning analysis.</p>
+<p>Finally, all steps are presented in a detailed manner, by going trough all the
+low level computations, with code examples. Leading the way to the final
+results obtained, and the final reports.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>This documentation is just a guide trough how one can use the provided python
+libraries do go from the raw data collected from the CoRoT sattelite to a simple
+architecture to be used on machine learning algorithms. If one also want to check
+other possible applications please check the GitHub repository.</p>
+</div>
+<div class="section" id="introduction-to-corot">
+<h2>Introduction to CoRoT<a class="headerlink" href="#introduction-to-corot" title="Permalink to this headline">¶</a></h2>
+<p>There are several methods to detect exo-planets and get information from them, as
+an example, there are:</p>
+<ul class="simple">
+<li><p>Radial velocity</p></li>
+<li><p>Transit photometry</p></li>
+<li><p>Relativistic beaming</p></li>
+<li><p>Gravitation microlensing</p></li>
+</ul>
+<p>and several others.</p>
+</div>
+<div class="section" id="problem-proposed">
+<h2>Problem proposed<a class="headerlink" href="#problem-proposed" title="Permalink to this headline">¶</a></h2>
+<p>Beeing as concise as possible, the main goal is to use machine learning to automate
+the classification of CoRoT collected data, as a way to cluster data that has meaningful
+information to be analised from data that has none. This means that we want to classify
+data that present possible exo-planets, from data that has information of something other
+then exo-planets.</p>
+<p>To provide a brief introduction on the knowledge needed to achieve this goal, we will
+describe the data set a little bit. The data set is provided by the repository provided
+at …, where it contains files in a <em>.fits</em> format. Those are actually pretty common in
+the astronomical whereabouts, but not for the machine learning public. In each <em>.fits</em>
+file, we will have a light curve time series for a particular CoRoT observation. All
+observations will have the white light intensity, some will have the RGB, but all will
+have the white light intensity along the obsevation time.</p>
+<p>Those time series, are not the light intensity provided by the observed exo-planet, but
+actually, the light intensity emition form the star in which the suposed exo-planet is
+orbiting around. Notice, that we actually have the Transit photometry information for
+this particular exo-planet.</p>
+<p>Therefore, we are talking about using the transit photometry time series to classify if
+in this particular observation there is a chance for the observation be an observation of
+an exo-planet, ore something else. As an ilustration, one will have time series data, that
+will contain the planetary transit information such in</p>
+<img alt="_images/planetary_transit.svg" src="_images/planetary_transit.svg" /><p>So the features for the machine learning algorithm must be gathered from the time series,
+and the algorithm must reach for the probability of this observation actually be the
+observation of a exo-planet.</p>
+</div>
+<div class="section" id="pipeline">
+<h2>Pipeline<a class="headerlink" href="#pipeline" title="Permalink to this headline">¶</a></h2>
+<p>The preprocessing pipeline consists on four major steps:</p>
+<ul class="simple">
+<li><p>Getting the data - (10%)</p></li>
+<li><p>Reading in Python - (20%)</p></li>
+<li><p>Feature Engineering - (50%)</p></li>
+<li><p>Machine Leaning - (20%)</p></li>
+</ul>
+<div class="admonition-notice admonition">
+<p class="admonition-title">Notice</p>
+<p>In this items, we introduced the usual percentage of the work amount usually taken
+for each particular part of an machine learning project. This is usually the amount
+when you have features that does not involve time, dynamic features… therefore
+static information, which is most used to happen, such as in problems of customer
+clustering, when one has features such</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><p>Age</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>Salary</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>Address</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>…</p></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p>Note that this features does not change over time. Here we have time series, so we
+have to somehow extract from those time series, some static information. So be
+prepared for the feature engineering part of the pipeline!</p>
+</div>
+<img alt="_images/progress_one.png" src="_images/progress_one.png" />
+<p>To get the data on your local machine, first one mush address to the
+<a class="reference external" href="http://idoc-corot.ias.u-psud.fr/sitools/client-user/COROT_N2_PUBLIC_DATA/project-index.html">data repository web site</a>
+where we will have the soo called level N2 processed data from the CoRoT observations.
+Those are the most processed versions of the CoRoT collected data. At this repository,
+one will find five classes of observations,</p>
+<ul class="simple">
+<li><p>CoRoT bright: the called bright stars (examples of not exo-planets)</p></li>
+<li><p>CoRoT targets: the called exo-planets (examples of exo-planets)</p></li>
+<li><p>Red giants: the observations classified as red giants (examples of not exo-planets)</p></li>
+<li><p>Stars with rotation periods from Affer (not used)</p></li>
+<li><p>Stars with rotation periods from Medeiros (not used)</p></li>
+</ul>
+<p>The last two classes will not interest us. We actually will only use the first three
+collection of data. Those collections have information of transit photometry or only
+light curve intensity, furthermore their labels allow us to segregate the information
+as not exo-planet and exo-planet. While the last two, provide labels that cannot ensure
+if the collected data is from an exo-planet observation or not.</p>
+<p>If the user select one of the three categories, it will show a table with several items.
+Each item is a particular light curve observation, and the user can select and download
+any of the curves that he desires.</p>
+<img alt="_images/process_download.png" src="_images/process_download.png" />
+<p>After downloading for the three classes (bright stars, confirmed targets and red giants)
+the user must keep each class in a particular folder, with the name that the user want to
+label each class. As schematized in the figure above.</p>
+<p>It is advised to keep a database folder following the structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./database
+   │
+   ├── bright_stars
+   │     ├── ..._1.fits
+   │     ├── ..._2.fits
+   │     ⋮       ⋮
+   │     └── ..._n.fits
+   │
+   ├── confirmed_targets
+   │     ├── ..._1.fits
+   │     ├── ..._2.fits
+   │     ⋮       ⋮
+   │     └── ..._m.fits
+   │
+   └── red_giants
+         ├── ..._1.fits
+         ├── ..._2.fits
+         ⋮       ⋮
+         └── ..._k.fits
+</pre></div>
+</div>
+<div class="admonition-drive-files-access admonition">
+<p class="admonition-title">Drive files access</p>
+<p>If the user does not want to go trough the process presented above and just want to
+download the data, already in the format presented above, it is possible to get it
+from my personal google drive, or in the direct download link:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><p><a class="reference external" href="https://drive.google.com/drive/folders/19kALbQ5m1ppXxGTVMBaWA4KdIE9pmWfM?usp=sharing">Google drive access</a></p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p><a class="reference external" href="https://drive.google.com/uc?export=download&amp;id=ttps://drive.google.com/drive/folders/19kALbQ5m1ppXxGTVMBaWA4KdIE9pmWfM?usp=sharin">Direct download</a></p></li>
+</ul>
+</td></tr></table>
+<p>The files are something close to tens of GB. Since it contains all the raw fits files
+for the three classes (bright stars, red giants and confirmed targets).</p>
+</div>
+<img alt="_images/progress_two.png" src="_images/progress_two.png" />
+<img alt="_images/progress_three.png" src="_images/progress_three.png" />
+<img alt="_images/progress_four.png" src="_images/progress_four.png" />
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Reading and Plotting</span></p>
 <ul>
@@ -233,6 +394,7 @@
 </ul>
 </li>
 </ul>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="320mm" height="100mm" xmlns="http://www.w3.org/2000/svg" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <marker id="TriangleInL">
+      <path transform="scale(-0.8)" style="stroke:#000;stroke-width:1pt" d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0z"/>
+    </marker>
+    <marker id="TriangleOutL">
+      <path transform="scale(0.8)" style="stroke:#000;stroke-width:1pt" d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0z"/>
+    </marker>
+  </defs>
+  <path style="fill:none;stroke:#000;stroke-width:1.3385174pt" d="M 1079.8523,131.88422 C 1082.3807,96.698221 656.89471,93.410741 586.40178,94.414141 C 515.90885,93.410741 92.116856,96.931661 92.951226,132.11766 C 92.951226,96.093021 515.90881,93.410741 586.40178,93.410741 C 656.89471,92.407341 1083.2151,95.859581 1079.8523,131.88422z"/>
+  <path style="fill:#ff0;stroke:#000;stroke-width:1pt" d="M 354.33071 343.70078 A 85.033073 88.58268 0 1 0 184.26456,343.70078 A 85.033073 88.58268 0 1 0 354.33071 343.70078z" transform="matrix(1.158388,0,0,1.115764,276.2334,-256.0599)"/>
+  <path style="fill:none;stroke:#000;stroke-width:1.3385174pt" d="M 1079.8545,132.14322 C 1082.3829,167.32922 656.89694,170.6167 586.40401,169.6133 C 515.91108,170.6167 92.119085,167.09578 92.953451,131.90978 C 92.953451,167.93442 515.91104,170.6167 586.40401,170.6167 C 656.89694,171.6201 1083.2173,168.16786 1079.8545,132.14322z"/>
+  <path style="fill:#f00;stroke:#000;stroke-width:1pt" d="M 88.582679 312.86749 A 8.8582678 4.5997839 0 1 0 70.866143,312.86749 A 8.8582678 4.5997839 0 1 0 88.582679 312.86749z" transform="matrix(1.046192,0,0,2.016756,363.0446,-461.3641)"/>
+  <path style="fill:#f00;stroke:#000;stroke-width:1pt" d="M 88.582679 312.86749 A 8.8582678 4.5997839 0 1 0 70.866143,312.86749 A 8.8582678 4.5997839 0 1 0 88.582679 312.86749z" transform="matrix(1.046192,0,0,2.016756,415.74,-461.3441)"/>
+  <path style="fill:#f00;stroke:#000;stroke-width:1pt" d="M 88.582679 312.86749 A 8.8582678 4.5997839 0 1 0 70.866143,312.86749 A 8.8582678 4.5997839 0 1 0 88.582679 312.86749z" transform="matrix(1.046192,0,0,2.016756,504.778,-461.3641)"/>
+  <path style="fill:none;stroke:#000;stroke-width:1.700007" d="M 91.267862,241.32944 C 91.267862,241.32944 445.60149,241.32944 490.63621,241.32944 C 502.29485,241.32944 502.29485,269.67588 516.46821,271.49664 C 587.33493,271.49664 587.33493,271.49664 658.20165,271.49664 C 672.37501,269.67588 672.37501,241.32944 687.24733,241.32944 C 772.64953,241.32944 1012.5353,241.32944 1083.4020,241.32944"/>
+  <text style="font-size:12;fill:#000;font-family:Bitstream Vera Sans" x="168.48695" y="15.876499" transform="scale(4.000032,4)"><tspan>Star</tspan></text>
+  <text style="font-size:12;fill:#000;font-family:Bitstream Vera Sans" x="71.457848" y="38.690094" transform="scale(4.000032,4)"><tspan>Planet</tspan></text>
+  <path style="fill:none;stroke:#000;stroke-width:1.304008;marker-start:url(#TriangleInL);marker-end:url(#TriangleOutL)" d="M 64.621172,226.8046 L 64.621172,310.19722 L 1084.252,310.69738"/>
+  <text style="font-size:12;fill:#000;font-family:Bitstream Vera Sans" x="-261.32895" y="47.101318" transform="matrix(0,-1,1.000008,0,0,0)"><tspan>Brightness</tspan></text>
+  <text style="font-size:12;fill:#000;font-family:Bitstream Vera Sans" x="1069.6879" y="334.63596" transform="scale(1.000008,1)"><tspan>Time</tspan></text>
+  <text style="font-size:12;fill:#000;font-family:Bitstream Vera Sans" x="204.31667" y="71.796989" transform="scale(4.000032,4)"><tspan>Light curve</tspan></text>
+</svg>
