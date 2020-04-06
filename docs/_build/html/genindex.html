@@ -96,14 +96,15 @@
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html">Read <em>.fits</em> raw data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Preprocessing-data">Preprocessing data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Generation-algorithms">Generation algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Save-the-pre-processed-data">Save the pre-processed data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Save-pre-processed-data">Save pre-processed data</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Feature Engineering</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html">Reading the data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Building-Time-Series-Frequency-Analysis">Building Time Series Frequency Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Creating-curves-spectrograms">Creating curves spectrograms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Automate-generation-algorithms">Automate generation algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Frequency-response">Feature: Frequency response</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Bayes-Simillarity">Feature: Bayes Simillarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Markov-Simillarity">Feature: Markov Simillarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Examples">Examples</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -174,16 +175,27 @@
 <h1 id="index">Index</h1>
 
 <div class="genindex-jumpbox">
- <a href="#C"><strong>C</strong></a>
+ <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
  | <a href="#F"><strong>F</strong></a>
+ | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#J"><strong>J</strong></a>
  | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#U"><strong>U</strong></a>
  
 </div>
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utils.html#utils.visual.box_plot">box_plot() (in module utils.visual)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -202,6 +214,18 @@
       <li><a href="utils.html#utils.data_helper.Reader.from_folder">from_folder() (utils.data_helper.Reader method)</a>
 </li>
       <li><a href="utils.html#utils.data_helper.Reader.from_txt">from_txt() (utils.data_helper.Reader method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utils.html#utils.visual.handle_opts">handle_opts() (in module utils.visual)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utils.html#utils.visual.hist_plot">hist_plot() (in module utils.visual)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -225,7 +249,19 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utils.html#utils.visual.line_plot">line_plot() (in module utils.visual)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utils.html#utils.data_helper.Reader.list_features">list_features() (utils.data_helper.Reader method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utils.html#utils.visual.multline_plot">multline_plot() (in module utils.visual)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -241,7 +277,7 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="utils.html#utils.data_struc.Curve.show_feature">show_feature() (utils.data_struc.Curve method)</a>
+      <li><a href="utils.html#utils.visual.show_plot">show_plot() (in module utils.visual)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -251,11 +287,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utils.html#module-utils">utils (module)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utils.html#module-utils.data_helper">utils.data_helper (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utils.html#module-utils.data_struc">utils.data_struc (module)</a>
+</li>
+      <li><a href="utils.html#module-utils.visual">utils.visual (module)</a>
 </li>
   </ul></td>
 </tr></table>

@@ -96,14 +96,15 @@
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html">Read <em>.fits</em> raw data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Preprocessing-data">Preprocessing data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Generation-algorithms">Generation algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Save-the-pre-processed-data">Save the pre-processed data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Save-pre-processed-data">Save pre-processed data</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Feature Engineering</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html">Reading the data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Building-Time-Series-Frequency-Analysis">Building Time Series Frequency Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Creating-curves-spectrograms">Creating curves spectrograms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Automate-generation-algorithms">Automate generation algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Frequency-response">Feature: Frequency response</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Bayes-Simillarity">Feature: Bayes Simillarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Markov-Simillarity">Feature: Markov Simillarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Examples">Examples</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
@@ -112,6 +113,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-utils">Intro</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-utils.data_helper">Data helper</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-utils.data_struc">Data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.visual">Visualization</a></li>
 </ul>
 </li>
 </ul>
@@ -335,27 +337,280 @@ inside the folders list.</p>
 <span id="data-structure"></span><h2>Data structure<a class="headerlink" href="#module-utils.data_struc" title="Permalink to this headline">¶</a></h2>
 <p>This module gathers all the custom data 
 structures created to replace the <em>.fits</em>
-format provided by the</p>
+format provided by the raw data-set.</p>
+<p>It represents the direct interface from the
+complex representation of the astropy.table
+modules, to simple <cite>array</cite> python variables.</p>
 <dl class="class">
 <dt id="utils.data_struc.Curve">
 <em class="property">class </em><code class="sig-prename descclassname">utils.data_struc.</code><code class="sig-name descname">Curve</code><span class="sig-paren">(</span><em class="sig-param">hdu=None</em>, <em class="sig-param">index=None</em>, <em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_struc.Curve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The ligth curve object.</p>
+<p>This object maintain the light curve HUD table,
+and represents an interface to get data from the
+HUD tables of the astropy library and the python
+environment. Therefore, it just represent a simple
+interface to transcript the HUD table informations
+to simple python variables such as <cite>dict</cite>, <cite>list</cite> 
+and <cite>array</cite>.</p>
+<p>For example to get create and extract the data 
+from a curve object the user just need to:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">utils.data_struc</span> <span class="k">as</span> <span class="nn">ds</span>
+<span class="n">curve</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">Curve</span><span class="p">(</span><span class="n">hdu</span><span class="o">=</span><span class="n">hduTable</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">hduTableIndex</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">curveLabel</span><span class="p">)</span>
+<span class="n">feature</span> <span class="o">=</span> <span class="n">curve</span><span class="p">[</span><span class="s1">&#39;FEATURE NAME&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>By using the <a class="reference internal" href="#utils.data_helper.Reader" title="utils.data_helper.Reader"><code class="xref py py-class docutils literal notranslate"><span class="pre">Reader</span></code></a>
+this is even more transparent. Here you need to provide</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hdu</strong> (<em>astronomy.table.Table</em>) – The HDU table from astronomy library</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – The desired HDU table index to be used</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – The desired label for this light curve</p></li>
+</ul>
+</dd>
+</dl>
+<p>And then, by just argumenting the column name of the 
+table, the user can get the values of the column as a 
+ndarray variable.</p>
+<div class="admonition-advantages admonition">
+<p class="admonition-title">Advantages</p>
+<p>One must question why use this particular structure 
+instead of just using the astropy.table.Table 
+objects. But, since in most time we just use the last
+HDU table (usually <cite>index=2</cite>), this structure automatically
+removed all other tables and just save the desired one
+in a memory map format (that has a better performance).</p>
+<p>This approach is memory efficient because, the information
+removed is usually something close to 10 times bigger than 
+the used one… that is, the first and second table are 
+at least ten times bigger than the third table (wich is 
+the most used one, <cite>index=2</cite>). Therefore, for this application, 
+this approach is actually efficient when compared to just 
+loading the data and dealing with the information in 
+astropy tables.</p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.1: </span>The <cite>from_file</cite> and <cite>from_folder</cite> methods where added.</p>
+</div>
 <dl class="method">
 <dt id="utils.data_struc.Curve.index_tables">
 <code class="sig-name descname">index_tables</code><span class="sig-paren">(</span><em class="sig-param">index=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_struc.Curve.index_tables" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Handly index the HDU table from the Curve object,
+by replacing the raw_table variable with only the
+desired HDU table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – The index of the desired HDU table</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="utils.data_struc.Curve.julian_to_stdtime">
 <code class="sig-name descname">julian_to_stdtime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_struc.Curve.julian_to_stdtime" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Change the julian date variable of the HDU tables
+to standard time representations.</p>
+</dd></dl>
 
-<dl class="method">
-<dt id="utils.data_struc.Curve.show_feature">
-<code class="sig-name descname">show_feature</code><span class="sig-paren">(</span><em class="sig-param">feature=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_struc.Curve.show_feature" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
+</div>
+<div class="section" id="module-utils.visual">
+<span id="visualization"></span><h2>Visualization<a class="headerlink" href="#module-utils.visual" title="Permalink to this headline">¶</a></h2>
+<p>This module simplifies the usage of the bokeh library
+by reducing the amount of code to plot a simple figure.
+For example, without this library, to plot a simple line
+with the bokeh library, one must need to:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bokeh.palettes</span> <span class="kn">import</span> <span class="n">Magma</span>
+<span class="kn">from</span> <span class="nn">bokeh.layouts</span> <span class="kn">import</span> <span class="n">column</span>
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">show</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+<span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">output_notebook</span><span class="p">,</span> <span class="n">push_notebook</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span> 
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Some title&quot;</span><span class="p">,</span>
+    <span class="n">plot_width</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+    <span class="n">plot_height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+    
+<span class="c1"># Style the figure image</span>
+<span class="n">p</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_line_alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">p</span><span class="o">.</span><span class="n">xgrid</span><span class="o">.</span><span class="n">band_fill_alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">p</span><span class="o">.</span><span class="n">xgrid</span><span class="o">.</span><span class="n">band_fill_color</span> <span class="o">=</span> <span class="n">Magma</span><span class="p">[</span><span class="mi">10</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">p</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">axis_label</span> <span class="o">=</span> <span class="s2">&quot;Some label for y axis&quot;</span>
+<span class="n">p</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">axis_label</span> <span class="o">=</span> <span class="s2">&quot;Some label for x axis&quot;</span>
+
+<span class="c1"># Place the information on plot</span>
+<span class="n">p</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span>
+        <span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;My legend label&quot;</span><span class="p">,</span>
+        <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">Magma</span><span class="p">[</span><span class="mi">10</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+        <span class="n">muted_alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">line_cap</span><span class="o">=</span><span class="s1">&#39;rounded&#39;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="s2">&quot;right_top&quot;</span>
+<span class="n">p</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">click_policy</span> <span class="o">=</span> <span class="s2">&quot;disable&quot;</span>
+
+<span class="n">show</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Wich, with the visual library one might do with 
+just:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">line_plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span>
+                    <span class="n">legend_label</span><span class="o">=</span><span class="s1">&#39;My legend label&#39;</span><span class="p">,</span> 
+                    <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Some title&#39;</span><span class="p">,</span>
+                    <span class="n">y_axis</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Some label for y axis&#39;</span><span class="p">},</span>
+                    <span class="n">x_axis</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Some label for x axis&#39;</span><span class="p">})</span>
+<span class="n">visual</span><span class="o">.</span><span class="n">show_plot</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Simple as that… It follows a defualt plotting stily for 
+each plot, presented in the <em>./utils/configs/plot.yaml</em>.
+And the user just need to pass the parameters that he
+want to change from this library. It also provides some 
+pre-computation to make more complex graphs, such as box 
+plots, histograms and so on.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is just a library to simplify most plots used during 
+the notebooks to not populate the algorithm with unecessary
+code… The user can use any library desired to do this same
+plots.</p>
+<p>Also the user can change the <em>plot.yaml</em> file to set any default
+plot style that one might want. Please, for that check out the 
+file in <em>./utils/configs/plot.yaml</em>.</p>
+</div>
+<dl class="function">
+<dt id="utils.visual.box_plot">
+<code class="sig-prename descclassname">utils.visual.</code><code class="sig-name descname">box_plot</code><span class="sig-paren">(</span><em class="sig-param">score=None</em>, <em class="sig-param">labels=None</em>, <em class="sig-param">opts=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.visual.box_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Bokeh figure object and populate its box plot
+propertie with the provided information. To create a 
+box plot, you actually need to combine two segment,
+vbar, and rect object from Bokeh. This method already
+does that for you. It also already computes the 
+statistical median, mean and each quantile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>score</strong> (<em>list</em>) – The list with all values of the distributions</p></li>
+<li><p><strong>labels</strong> (<em>list</em>) – The list with the group label for each value of score</p></li>
+<li><p><strong>opts</strong> (<em>dict</em>) – The desired options of the plot.yaml in dictionary format</p></li>
+<li><p><strong>kwargs</strong> – The desired options of the plot.yaml in directive format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Bokeh figure object with the line properties filled</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.visual.handle_opts">
+<code class="sig-prename descclassname">utils.visual.</code><code class="sig-name descname">handle_opts</code><span class="sig-paren">(</span><em class="sig-param">default</em>, <em class="sig-param">provided</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.visual.handle_opts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge the default (set by the plot.yaml file) and 
+user provided plot options into one dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>default</strong> (<em>dict</em>) – The default style guide dict from plot.yaml</p></li>
+<li><p><strong>provided</strong> (<em>dict</em>) – The user provided properties</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dict with the merged default and provided plot options</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.visual.hist_plot">
+<code class="sig-prename descclassname">utils.visual.</code><code class="sig-name descname">hist_plot</code><span class="sig-paren">(</span><em class="sig-param">hist=None</em>, <em class="sig-param">edges=None</em>, <em class="sig-param">opts=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.visual.hist_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Bokeh figure object and populate its histogram 
+plot propertie with the provided information. To create a 
+histogram plot, you actually need to the correct properties
+of the quad object from Bokeh. This method already does that 
+for you. It also already computes the correct values, and 
+create the bins correctly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hist</strong> (<em>ndarray</em>) – The hist output from numpy.histogram</p></li>
+<li><p><strong>edges</strong> (<em>ndarray</em>) – The histogram edges output from numpy.histogram</p></li>
+<li><p><strong>opts</strong> (<em>dict</em>) – The desired options of the plot.yaml in dictionary format</p></li>
+<li><p><strong>kwargs</strong> – The desired options of the plot.yaml in directive format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Bokeh figure object with the line properties filled</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.visual.line_plot">
+<code class="sig-prename descclassname">utils.visual.</code><code class="sig-name descname">line_plot</code><span class="sig-paren">(</span><em class="sig-param">x_data=None</em>, <em class="sig-param">y_data=None</em>, <em class="sig-param">opts=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.visual.line_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Bokeh figure object and populate its line 
+propertie with the provided information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_data</strong> (<em>ndarray</em>) – The ndarray with x axis values</p></li>
+<li><p><strong>y_data</strong> (<em>ndarray</em>) – The ndarray with y axis values</p></li>
+<li><p><strong>opts</strong> (<em>dict</em>) – The desired options of the plot.yaml in dictionary format</p></li>
+<li><p><strong>kwargs</strong> – The desired options of the plot.yaml in directive format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Bokeh figure object with the line properties filled</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.visual.multline_plot">
+<code class="sig-prename descclassname">utils.visual.</code><code class="sig-name descname">multline_plot</code><span class="sig-paren">(</span><em class="sig-param">x_data=None</em>, <em class="sig-param">y_data=None</em>, <em class="sig-param">opts=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.visual.multline_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Bokeh figure object and populate a line object
+of the bokeh library for each line data provided in the 
+y_data list parameter of this function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_data</strong> (<em>list</em>) – The list with a ndarray data for the x axis of each line</p></li>
+<li><p><strong>y_data</strong> (<em>list</em>) – The list with a ndarray data for the y axis of each line</p></li>
+<li><p><strong>opts</strong> (<em>dict</em>) – The desired options of the plot.yaml in dictionary format</p></li>
+<li><p><strong>kwargs</strong> – The desired options of the plot.yaml in directive format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Bokeh figure object with the line properties filled</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.visual.show_plot">
+<code class="sig-prename descclassname">utils.visual.</code><code class="sig-name descname">show_plot</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.visual.show_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function shows the figures provided as arguments
+by default, in a column manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – The bokeh.Figure objects to be show in a figure</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>

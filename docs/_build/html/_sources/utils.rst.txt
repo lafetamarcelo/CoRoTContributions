@@ -26,3 +26,12 @@ Data structure
    :undoc-members:
    :show-inheritance:
 
+
+Visualization
+------------------------
+
+.. automodule:: utils.visual
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

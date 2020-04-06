@@ -96,14 +96,15 @@
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html">Read <em>.fits</em> raw data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Preprocessing-data">Preprocessing data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Generation-algorithms">Generation algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Save-the-pre-processed-data">Save the pre-processed data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Save-pre-processed-data">Save pre-processed data</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Feature Engineering</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html">Reading the data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Building-Time-Series-Frequency-Analysis">Building Time Series Frequency Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Creating-curves-spectrograms">Creating curves spectrograms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Automate-generation-algorithms">Automate generation algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Frequency-response">Feature: Frequency response</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Bayes-Simillarity">Feature: Bayes Simillarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Markov-Simillarity">Feature: Markov Simillarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Examples">Examples</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -202,10 +203,10 @@
 A Data Analysis Pipeline for the CoRoT Light Curve Data, supported by NSEE
 and FAPESP. The pipeline major three specific topics that will allow any
 user with basic knowledge in Python to reproduce the analysis.</p>
-<p>First we will present an <strong>introduction</strong> on the CoRoT project and it’s objectives
+<p>First we will present an <strong>introduction</strong> on the CoRoT project and its objectives
 for contextualization. The <strong>problem</strong> for this research is then presented, to make it
 clear the objectives of this work. And after we will present the proposed <strong>pipeline</strong>
-in it’s major groups, as an overview of the high level steps to get from the raw
+in its major groups, as an overview of the high level steps to get from the raw
 collected data, to the machine learning analysis.</p>
 <p>Finally, all steps are presented in a detailed manner, by going trough all the
 low level computations, with code examples. Leading the way to the final
@@ -360,13 +361,17 @@ for the three classes (bright stars, red giants and confirmed targets).</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html">Read <em>.fits</em> raw data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Preprocessing-data">Preprocessing data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="01 - Reading and Plotting.html#Time-sample-analysis">Time sample analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01 - Reading and Plotting.html#Resample-the-time-series-data">Resample the time series data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01 - Reading and Plotting.html#Create-eclipse-labels">Create eclipse labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01 - Reading and Plotting.html#Resampling-series">Resampling series</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="01 - Reading and Plotting.html#Sample-time-distribution">Sample time distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01 - Reading and Plotting.html#Resample-time-series-data">Resample time series data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="01 - Reading and Plotting.html#Filtering-series">Filtering series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01 - Reading and Plotting.html#Application-example">Application example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Generation-algorithms">Generation algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Save-the-pre-processed-data">Save the pre-processed data</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Save-pre-processed-data">Save pre-processed data</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="01 - Reading and Plotting.html#Save-as-.mat-file">Save as <em>.mat</em> file</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01 - Reading and Plotting.html#Save-as-.pickle-file">Save as <em>.pickle</em> file</a></li>
 </ul>
@@ -377,9 +382,18 @@ for the three classes (bright stars, red giants and confirmed targets).</p>
 <p class="caption"><span class="caption-text">Feature Engineering</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html">Reading the data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Building-Time-Series-Frequency-Analysis">Building Time Series Frequency Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Creating-curves-spectrograms">Creating curves spectrograms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Automate-generation-algorithms">Automate generation algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Frequency-response">Feature: Frequency response</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Spectrum-generation">Spectrum generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Detrended-spectrum">Detrended spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Save-feature">Save feature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Bayes-Simillarity">Feature: Bayes Simillarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Markov-Simillarity">Feature: Markov Simillarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Examples">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Interactive-Series-Spectrum">Interactive Series Spectrum</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -390,6 +404,7 @@ for the three classes (bright stars, red giants and confirmed targets).</p>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils">Intro</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.data_helper">Data helper</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.data_struc">Data structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.visual">Visualization</a></li>
 </ul>
 </li>
 </ul>

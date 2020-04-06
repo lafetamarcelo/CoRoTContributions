@@ -11,10 +11,10 @@ A Data Analysis Pipeline for the CoRoT Light Curve Data, supported by NSEE
 and FAPESP. The pipeline major three specific topics that will allow any 
 user with basic knowledge in Python to reproduce the analysis.
 
-First we will present an **introduction** on the CoRoT project and it's objectives
+First we will present an **introduction** on the CoRoT project and its objectives
 for contextualization. The **problem** for this research is then presented, to make it
 clear the objectives of this work. And after we will present the proposed **pipeline** 
-in it's major groups, as an overview of the high level steps to get from the raw 
+in its major groups, as an overview of the high level steps to get from the raw 
 collected data, to the machine learning analysis.
 
 Finally, all steps are presented in a detailed manner, by going trough all the 

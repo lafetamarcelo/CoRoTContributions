@@ -6,3 +6,4 @@
 
 from . import data_helper
 from . import data_struc
+from . import visual
