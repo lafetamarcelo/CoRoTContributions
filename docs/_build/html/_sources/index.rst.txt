@@ -107,6 +107,18 @@ The preprocessing pipeline consists on four major steps:
    have to somehow extract from those time series, some static information. So be 
    prepared for the feature engineering part of the pipeline!
 
+.. warning::
+
+   Note that the first three pipeline steps will generate a data file, with the processed 
+   data for the next step. The user can choose to either follow each process step, and by 
+   it self generate and preprocess the data. Or one can go the google drive link bellow 
+   
+   * `Google drive access <https://drive.google.com/drive/folders/19kALbQ5m1ppXxGTVMBaWA4KdIE9pmWfM?usp=sharing>`_ 
+   
+   and download the already preprocessed data. For example, if the user wants to jump all 
+   the three first steps and just have access to the features for the machine learning 
+   algorithm, one can download then from the folder `/features` in the google drive.
+
 .. image:: images/progress_one.png
 
 To get the data on your local machine, first one mush address to the 
@@ -129,7 +141,20 @@ if the collected data is from an exo-planet observation or not.
 
 If the user select one of the three categories, it will show a table with several items.
 Each item is a particular light curve observation, and the user can select and download 
-any of the curves that he desires. 
+any of the curves that he desires.
+
+After that one might also download another class of light curve observations called 
+eclipsing binaries from the `data repository web site <http://idoc-corot.ias.u-psud.fr/sitools/client-user/COROT_N2_PUBLIC_DATA/project-index.html>`_ 
+in the Query Forms tab in the FAINT STARS option. There the user will be able to query 
+each curve from their specific CoRoT Id. Then by searching the stars CoRoT Id from the 
+tables at the `CoRoT transit catalog <http://cdsarc.u-strasbg.fr/viz-bin/qcat?J/A+A/619/A97>`_, 
+it is possible to reach a group of close to 1500 eclipsing binaries.
+
+.. note:: 
+   One interesting aspect of the eclipsing binaries is that their light curves is pretty 
+   close to the exo-planets ones. Therefore it is pretty dificult to cluster eclipsing 
+   binaries from exo-planets using only the light curve. This is actually the most 
+   interesting case study of this project.
 
 .. image:: images/process_download.png
 
@@ -145,9 +170,15 @@ It is advised to keep a database folder following the structure::
       │     ├── ..._1.fits
       │     ├── ..._2.fits
       │     ⋮       ⋮
-      │     └── ..._n.fits
+      │     └── ..._k.fits
       │
       ├── confirmed_targets
+      │     ├── ..._1.fits
+      │     ├── ..._2.fits
+      │     ⋮       ⋮
+      │     └── ..._l.fits
+      │
+      ├── eclipsing_binaries
       │     ├── ..._1.fits
       │     ├── ..._2.fits
       │     ⋮       ⋮
@@ -157,7 +188,7 @@ It is advised to keep a database folder following the structure::
             ├── ..._1.fits
             ├── ..._2.fits
             ⋮       ⋮
-            └── ..._k.fits
+            └── ..._n.fits
 
 
 .. admonition:: Drive files access
@@ -173,12 +204,85 @@ It is advised to keep a database folder following the structure::
       * `Direct download <https://drive.google.com/uc?export=download&id=ttps://drive.google.com/drive/folders/19kALbQ5m1ppXxGTVMBaWA4KdIE9pmWfM?usp=sharin>`_ 
 
    The files are something close to tens of GB. Since it contains all the raw fits files
-   for the three classes (bright stars, red giants and confirmed targets).
+   for the three classes (bright stars, red giants, confirmed targets and eclipsing binaries).
 
 
 .. image:: images/progress_two.png
 
+After getting the data from the online repositories, we need to transform this data in 
+to data structures more python friendly, such as dictionaries, lists, arrays, or into 
+files with more suitable formats then *fits* files, *e.g.* pickle files, or MATLAB 
+files (if one wants to algorithms on MATLAB).
+
+For that we create here a preprocessing library called :py:class:`Reader <utils.data_helper.Reader>`
+that transform the data from the fits files into simple objects of the class 
+:py:class:`Curve <utils.data_struc.Curve>` that actually simplifies the information 
+access, and make it faster, provided that it works with the so called memory maps and 
+only save HUD tables that will be actually necessary in the future. This process 
+reduces the dataset up to 80\% (the data that was something close to 40 GB, is now
+something close to 7 GB).
+
+The next scheme illustrate the process applied to the data to create this interface 
+from the *.fits* format into the python friendly form:
+
+.. image:: images/process_reading.png
+
+From the above scheme, we can see that the process starts from the *fits* files and 
+after passing trough the :py:class:`Reader <utils.data_helper.Reader>`, we achieve 
+an structure that with simple calls to the information variables, it is possible to 
+get that variable data in `dict` and/or `list` formats.
+
+After reading the data, and before saving in a format such as the pickle file, we 
+also apply a preprocessing technique to filter out the noise of the time series. 
+This technique is apllied here instead of in the feature engineering step, just to 
+show the user the importance to undestand the feature processing part with an 
+information extration practical example. Showing that a simple filtering technique 
+can enable the access to several other informations. And by that, engaging the user 
+to see the next step of the pipeline, wich will have several other feature engineering 
+techniques. 
+
 .. image:: images/progress_three.png
+
+The feature engineering process is the part that takes most work in a machine learning 
+project. It is the part where one must extract meaningful information from the data to 
+provide for the machine learning algorithms. But interesting enough, one cannot know 
+before hand what information is actually the best one for the machine learning algorithm.
+Most machine learning projects, the data is actually static (does not depend on time) and 
+have a simpler path to be taken, where the only usual procedure done in the feature 
+engineering is the common normalization and feature reduction (when the dimension of the 
+features are very high and the learning algorithm is pretty heavy). But in the case of 
+time series classification, the user have dynamic data... wich needs to be transformed to 
+static data, to then go trough the common feature engineering processes.
+
+There are several paths that one might take to get static information from the data when 
+one has a time series in the hands. Some of the techniques are presented:
+
+* Power spectrum
+* Periodograms
+* Number of peaks
+* Dynamic insights
+
+The first two, are not much than the Fourier representation of the data, wich is actually 
+the most charateristic information of the time series. The second is just a common used 
+info in the internet tutorials (which in a very noisy scenario, will only generate more 
+noisy data). The last one usually is a very powerfull approach, in wich we first use the 
+data to estimate a dynamical model of the time series phenomenon, and then use that model 
+parameters to clusterize each time series. The most interesting part of this approach, is 
+that it relies on the leaning algorithm focus to enhance certain behaviors of the dynamic 
+model and mitigate the effects of others.
+
+Usually people abuse of simple least squares or deterministic techniques to acquire the 
+parameters of a particular structure model. Here we will present a stochastic approach of 
+this technique, where we will estimate stochastic and probabilistic models for the time 
+series, and their parameters will then be used as features for the machine learnig process.
+
+Here the bellow features will be generated for the machine learning algorithm:
+
+* Periodograms
+* Bayes marginal likelihood
+* Hidden Markov Models
+* Latent Dirichlet Allocation
+
 
 .. image:: images/progress_four.png
 

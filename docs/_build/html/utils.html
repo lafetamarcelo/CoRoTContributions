@@ -32,7 +32,6 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -285,7 +284,7 @@ name, if <cite>label=None</cite>) and return the data_sctruc.Curve.</p>
 
 <dl class="method">
 <dt id="utils.data_helper.Reader.from_folder">
-<code class="sig-name descname">from_folder</code><span class="sig-paren">(</span><em class="sig-param">folder=None</em>, <em class="sig-param">label=None</em>, <em class="sig-param">index=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_helper.Reader.from_folder" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">from_folder</code><span class="sig-paren">(</span><em class="sig-param">folder=None</em>, <em class="sig-param">label=None</em>, <em class="sig-param">index=None</em>, <em class="sig-param">items=None</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.data_helper.Reader.from_folder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the white light curve of each <em>.fits</em> file presented inside 
 the provided folder, label each one or with the provided label, 
 or with the folder name, and return a list with one data_struc.Curve
@@ -296,6 +295,7 @@ variable for each <em>.fits</em> file.</p>
 <li><p><strong>folder</strong> (<em>str</em>) – Paths to the folder with the <em>.fits</em> files</p></li>
 <li><p><strong>label</strong> (<em>str</em>) – The label for the returned light curves</p></li>
 <li><p><strong>index</strong> (<em>int</em>) – The HUD table index</p></li>
+<li><p><strong>items</strong> (<em>int</em>) – The amount of random files to read from folder</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

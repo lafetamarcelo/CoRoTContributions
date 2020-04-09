@@ -12,6 +12,7 @@
 import os
 import logging
 import astropy as ast
+from random import randint
 from astropy.table import Table
 from .data_struc import Curve
 
@@ -114,7 +115,8 @@ class Reader:
             self,
             folder=None,
             label=None,
-            index=None ):
+            index=None,
+            items=None ):
         """
         Get the white light curve of each *.fits* file presented inside 
         the provided folder, label each one or with the provided label, 
@@ -124,6 +126,7 @@ class Reader:
         :param str folder: Paths to the folder with the *.fits* files
         :param str label: The label for the returned light curves
         :param int index: The HUD table index
+        :param int items: The amount of random files to read from folder
         
         :return: A list of data_struc.Curve
         :rtype: list
@@ -137,9 +140,20 @@ class Reader:
             self.log.info("No custom label was provided!")
             self.log.info("Setting label as:" + label)
         files, curves = os.listdir(folder), list()
+        if items is not None:
+            if len(files) > items:
+                all_files = files
+                indexes = [randint(0, len(all_files)-1) for k in range(items)]
+                files = [all_files[k] for k in indexes]
+            else:
+                self.log.info("There is more curves than expected in items.")
         self.log.info("Reading {} curve packages...".format(len(files)))
         for file_name in files:
-            hdu_data = ast.io.fits.open( os.path.join(folder, file_name), memmap=True )
-            curves.append( 
-                Curve(hdu=hdu_data, label=label, index=index) )
+            try:
+                hdu_data = ast.io.fits.open( os.path.join(folder, file_name), memmap=True )
+                curves.append( 
+                    Curve(hdu=hdu_data, label=label, index=index) )
+            except:
+                self.log.info("Error reading on the {} item.".format(files.index(file_name)))
+        self.log.info("Done reading!")
         return curves
