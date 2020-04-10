@@ -35,11 +35,11 @@ master_doc = 'index'
 # ones.
 extensions = [
   'nbsphinx',
-  "sphinx_rtd_theme",
-  "sphinx.ext.autodoc",
+  'sphinx_rtd_theme',
+  'sphinx.ext.autodoc',
   'sphinx.ext.mathjax',
   'sphinx_copybutton',
-  "sphinx.ext.githubpages"
+  'sphinx.ext.githubpages'
 ]
 
 highlight_language = 'python3'

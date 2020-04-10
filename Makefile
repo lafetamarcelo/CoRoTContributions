@@ -1,4 +1,7 @@
 
+docs:
+	make html_note
+	
 
 html_update:
 	cp -r ./temp/_build/html/ ./docs/
