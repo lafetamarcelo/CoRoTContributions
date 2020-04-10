@@ -114,7 +114,7 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 plotLog = logging.getLogger("plot_log")
 
 yaml = YAML()
-conf_path = './utils/configs/plot.yaml'
+conf_path = '../utils/configs/plot.yaml'
 with open(conf_path, 'r') as conf_file:
   def_fig_opts = yaml.load(conf_file)
 
