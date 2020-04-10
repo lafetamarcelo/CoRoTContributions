@@ -1,9 +1,20 @@
+#
+#
+# Default folders
 .pytest*
 *__pycache__*
 .vscode/
 database/
 temp/
 
+#
+#
+# General file types
 *.gz
 *.pkl
 *.mat
+
+#
+#
+# Build folders
+docs/_build

@@ -283,6 +283,12 @@ Here the bellow features will be generated for the machine learning algorithm:
 * Hidden Markov Models
 * Latent Dirichlet Allocation
 
+The first one is the classical technique (wich present several concerns and computation 
+problems, due to the Fourier algorithms). The second one use probabilistic Bayes Models
+parameters as features. The third use the estimated parameters for Hidden Markov Models 
+as features. And the fourth one actually is a very complex technique usually used to 
+cluster text into speach topics, and here is used outside its scope, to check if the 
+topics classification also can be applied to time series dependencies.
 
 .. image:: images/progress_four.png
 
@@ -297,6 +303,12 @@ Here the bellow features will be generated for the machine learning algorithm:
    :caption: Feature Engineering
 
    02 - Building and creating features
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Machine Learning
+
+   03 - Machine Learning
 
 
 .. toctree::

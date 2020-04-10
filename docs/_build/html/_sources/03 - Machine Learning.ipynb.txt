@@ -1,0 +1,400 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## XGBoost Classifier\n",
+    "\n",
+    "The first algorithm that we will use is the XGBoost with its random forest classifier. To do that, we must first:\n",
+    "\n",
+    "- Normalize the data if necessary\n",
+    "- Divide the data between trainning and testing\n",
+    "- Cross validate the models\n",
+    "\n",
+    "This will be done for each one of the designed features."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "### Hidden Markov Models\n",
+    "\n",
+    "Here we use the model estimated from the Hidden Markov Models library, wich is the estimated $A$ matrix, or the so called transition probability matrices as feature for the learning classifier. For that we must read the pickle file with the desired features:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "dict_keys(['y', 't', 'labels', 'features'])"
+      ]
+     },
+     "execution_count": 1,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import pickle \n",
+    "\n",
+    "with open('./hmm_data.pkl', 'rb') as file:\n",
+    "    data = pickle.load(file)\n",
+    "data.keys()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Manipulate features\n",
+    "\n",
+    "Here we organize the features into table structures to be more easy to deal on the learning algorithm."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "from sklearn import preprocessing\n",
+    "\n",
+    "# Encode the label\n",
+    "le_hmm = preprocessing.LabelEncoder()\n",
+    "le_hmm.fit( data['labels'] )\n",
+    "\n",
+    "# Define the model order\n",
+    "feat = data['features']\n",
+    "nx = feat['prob_matrix'][0].shape[0]\n",
+    "\n",
+    "regressors = []\n",
+    "for phi in feat['prob_matrix']:\n",
+    "    # Reshape the regressor\n",
+    "    reg = phi.reshape(nx*nx)\n",
+    "    # Add to the regressors\n",
+    "    regressors.append(reg)   \n",
+    "# Normalize the regressors\n",
+    "regressors = preprocessing.normalize(regressors)\n",
+    "# Define outputs as encoded variables\n",
+    "outputs = le_hmm.transform(data['labels'])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Train-Test Split\n",
+    "\n",
+    "Segregate the data in train and test groups..."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.model_selection import train_test_split\n",
+    "\n",
+    "X_train, X_test, y_train, y_test = train_test_split( \n",
+    "    regressors, outputs, test_size=0.33, random_state=42)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Train model\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import xgboost as xgb\n",
+    "\n",
+    "param_dist = {\n",
+    "    'objective':'binary:logistic', \n",
+    "    'n_estimators':5\n",
+    "}\n",
+    "\n",
+    "clf = xgb.XGBClassifier(**param_dist)\n",
+    "\n",
+    "clf.fit(X_train, y_train,\n",
+    "        eval_set=[\n",
+    "            (X_train, y_train), \n",
+    "            (X_test, y_test)\n",
+    "        ],\n",
+    "        eval_metric='logloss',\n",
+    "        verbose=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Hyper tunning\n",
+    "\n",
+    "We could consider tunning the model hyper parameters to answer questions such as:\n",
+    "\n",
+    "- Wich value of `n_estimators` is the best for this model and data?\n",
+    "- Wich cost function is the best to be selected as `objective` for this model?\n",
+    "\n",
+    "We could do a hyper search, to find the best hyper parameters for this model, automating the hyper parameter selection. There are several already builded algorithms to optimize this parameter search, and build find with high performance the best parameters, provided a set of possible values. But, to understand what those algorithms actually does, we could once build our own search algorithm...\n",
+    "\n",
+    "As an example, lets run a first handly defined hyper parameter tunning using the confusion matrix of the model:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.metrics import confusion_matrix\n",
+    "\n",
+    "n_estimators = [ k+1 for k in range(100)]\n",
+    "\n",
+    "conf_matrices = []\n",
+    "for opt in n_estimators:\n",
+    "    # Update the model parameters\n",
+    "    param_dist['n_estimators'] = opt\n",
+    "    # Create the xgBoost classifier\n",
+    "    clfs = xgb.XGBClassifier(**param_dist)\n",
+    "    # Fit the model to the data\n",
+    "    clfs.fit(X_train, y_train,\n",
+    "            eval_metric='logloss',\n",
+    "            verbose=True)\n",
+    "    # Estimate the test output\n",
+    "    y_pred = clfs.predict(X_test)\n",
+    "    # Compute the confusion matrix\n",
+    "    conf_mat = confusion_matrix(\n",
+    "        y_test, y_pred,\n",
+    "        normalize='true')\n",
+    "    # Save the confusion matrix\n",
+    "    conf_matrices.append(conf_mat)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from utils import *\n",
+    "\n",
+    "# Create and organize the plot values\n",
+    "plot_vals = {\n",
+    "    'true': {\n",
+    "        'confirmed targets': [],\n",
+    "        'eclipsing binaries': [],\n",
+    "    },\n",
+    "    'false': {\n",
+    "        'confirmed targets': [],\n",
+    "        'eclipsing binaries': [],\n",
+    "    }\n",
+    "}\n",
+    "for result in conf_matrices:\n",
+    "    plot_vals['true']['confirmed targets'].append(result[0,0])\n",
+    "    plot_vals['true']['eclipsing binaries'].append(result[1,1])\n",
+    "    plot_vals['false']['confirmed targets'].append(result[0,1])\n",
+    "    plot_vals['false']['eclipsing binaries'].append(result[1,0])\n",
+    "\n",
+    "x_values = range(len(conf_matrices))\n",
+    "x_data = [x_values, x_values, x_values, x_values]\n",
+    "y_data = [plot_vals['true']['confirmed targets'],\n",
+    "          plot_vals['true']['eclipsing binaries'],\n",
+    "          plot_vals['false']['confirmed targets'],\n",
+    "          plot_vals['false']['eclipsing binaries']]\n",
+    "legends= ['True - C.T.', 'True - E.B.', 'False - C.T.', 'False - E.B.']\n",
+    "colors = [6, 7, 2, 3]\n",
+    "\n",
+    "p = visual.multline_plot(x_data, y_data,\n",
+    "                         legend_label=legends, \n",
+    "                         title='Hyper parameter search - Confusion plot',\n",
+    "                         color_index=colors,\n",
+    "                         y_axis={'label': 'Intensity'},\n",
+    "                         x_axis={'label': 'n_estimators'})\n",
+    "visual.show_plot(p)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The user might see that the best values for the `n_estimators` parameter is something close to `[4,5,6]`. When we have a range of values, such as here, usually is advisable to use the simpler model, in this case `n_estimators=4`, wich is the value defined before.\n",
+    "\n",
+    "> *Notice that the value `n_estimators`$=n_x$ defined in the previous step algorithm. Since the hidden markov model is pretty simple such as the classifier. Therefore is possible that the hidden markov model is underfitted, this means that the markov model is to simple to represent the information from the ligt curve, since there is no redundancy on the model. This is infered by checking that `n_estimators`$=n_x$ is the best solution for this problem.*\n",
+    "\n",
+    "Considering more complex hidden markov models, such as one with $n_x \\in \\{8,12,16,20\\}$, we can get to some other models, as it follows:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "#### Results\n",
+    "\n",
+    "Here we include some visualization results for the xgBoost algorithm classification. As the first result, we just print the model eval metrics, here the *log loss* of the model, for both the trainning and testing data."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pprint\n",
+    "pp = pprint.PrettyPrinter(indent=2)\n",
+    "\n",
+    "evals_result = clf.evals_result()\n",
+    "pp.pprint(evals_result)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.metrics import plot_confusion_matrix\n",
+    "\n",
+    "disp = plot_confusion_matrix(clf, X_test, y_test,\n",
+    "                             display_labels=le_hmm.classes_,\n",
+    "                             cmap=plt.cm.Blues,\n",
+    "                             normalize='true')\n",
+    "disp.ax_.set_title('Confusion matrix')\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pickle \n",
+    "\n",
+    "with open('./freq_Data.pkl', 'rb') as file:\n",
+    "    data = pickle.load(file)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "feat_1 = data['features']['freq']\n",
+    "feat_2 = data['features']['spec']\n",
+    "\n",
+    "fmax, fmin, size = [], [], []\n",
+    "for feat in feat_1:\n",
+    "    fmax.append(feat.max())\n",
+    "    fmin.append(feat.min())\n",
+    "    size.append(len(feat))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "\n",
+    "plt.figure()\n",
+    "for s, f in zip(feat_2, feat_1):\n",
+    "    plt.plot(f, s)\n",
+    "plt.plot([max(fmax), max(fmax)],[0, 3*10**7])\n",
+    "plt.xscale(\"log\")\n",
+    "plt.show()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "max(fmax), min(fmax)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.4"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

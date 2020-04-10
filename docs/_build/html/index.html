@@ -32,6 +32,7 @@
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -101,9 +102,13 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html">Reading the data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Frequency-response">Feature: Frequency response</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Bayes-Simillarity">Feature: Bayes Simillarity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Markov-Simillarity">Feature: Markov Simillarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Bayes-likelihood">Feature: Bayes likelihood</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Markov-Hidden-Models">Feature: Markov Hidden Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Examples">Examples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Machine Learning</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="03 - Machine Learning.html">XGBoost Classifier</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
@@ -448,6 +453,12 @@ series, and their parameters will then be used as features for the machine learn
 <li><p>Hidden Markov Models</p></li>
 <li><p>Latent Dirichlet Allocation</p></li>
 </ul>
+<p>The first one is the classical technique (wich present several concerns and computation
+problems, due to the Fourier algorithms). The second one use probabilistic Bayes Models
+parameters as features. The third use the estimated parameters for Hidden Markov Models
+as features. And the fourth one actually is a very complex technique usually used to
+cluster text into speach topics, and here is used outside its scope, to check if the
+topics classification also can be applied to time series dependencies.</p>
 <img alt="_images/progress_four.png" src="_images/progress_four.png" />
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Reading and Plotting</span></p>
@@ -478,13 +489,40 @@ series, and their parameters will then be used as features for the machine learn
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Frequency-response">Feature: Frequency response</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Spectrum-generation">Spectrum generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Detrended-spectrum">Detrended spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Interpolate-data">Interpolate data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Save-feature">Save feature</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Bayes-Simillarity">Feature: Bayes Simillarity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Markov-Simillarity">Feature: Markov Simillarity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Bayes-likelihood">Feature: Bayes likelihood</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Regression-model">Regression model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Next-step-parameters">Next step parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#id1">Save feature</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Markov-Hidden-Models">Feature: Markov Hidden Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Preprocessing-data">Preprocessing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Estimate-HMM">Estimate HMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#id2">Save feature</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Examples">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="02 - Building and creating features.html#Interactive-Series-Spectrum">Interactive Series Spectrum</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Machine Learning</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="03 - Machine Learning.html">XGBoost Classifier</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning.html#Hidden-Markov-Models">Hidden Markov Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning.html#Manipulate-features">Manipulate features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning.html#Train-Test-Split">Train-Test Split</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning.html#Train-model">Train model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning.html#Hyper-tunning">Hyper tunning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning.html#Results">Results</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
