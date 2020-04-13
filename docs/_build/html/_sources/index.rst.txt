@@ -55,7 +55,8 @@ other then exo-planets.
 
 To provide a brief introduction to the knowledge needed to achieve this goal, we will 
 describe the data set a little bit. The data set is provided by the repository provided 
-at ..., where it contains files in a *.fits* format. Those are pretty common in the 
+at `the web site <http://idoc-corot.ias.u-psud.fr/sitools/client-user/COROT_N2_PUBLIC_DATA/project-index.html>`_ , 
+where it contains files in a *.fits* format. Those are pretty common in the 
 astronomical whereabouts, but not for the machine learning public. In each *.fits* 
 file, we will have a light curve time series for a particular CoRoT observation. 
 All observations will have the white light intensity, some will have the RGB, but all 
@@ -71,7 +72,7 @@ in this particular observation there is a chance for the observation be one of a
 or something else. As an illustration, one will have time-series data, that will contain 
 the planetary transit information such in
 
-.. image:: images/planetary_transit.png
+.. image:: images/planetary_transit.svg
    :width: 800
 
 So the features for the machine learning algorithm must be gathered from the time series,
@@ -120,6 +121,7 @@ The preprocessing pipeline consists on four major steps:
    and download the already preprocessed data. For example, if the user wants to jump all 
    the three first steps and just have access to the features for the machine learning 
    algorithm, one can download then from the folder `/features` in the google drive.
+
 
 .. image:: images/progress_one.png
    :width: 800
@@ -210,7 +212,6 @@ It is advised to keep a database folder following the structure::
    The files are something close to tens of GB. Since it contains all the raw fits files
    for the three classes (bright stars, red giants, confirmed targets and eclipsing binaries).
 
-
 .. image:: images/progress_two.png
    :width: 800
 
@@ -241,6 +242,8 @@ feature engineering step, just to show the user the importance to understand the
 with an information extraction practical example. Showing that a simple filtering technique can enable access 
 to several other pieces of information. And by that, engaging the user to see the next step of the pipeline, 
 which will have several other feature engineering techniques. 
+
+----
 
 .. image:: images/progress_three.png
    :width: 800
@@ -293,6 +296,7 @@ its scope, to check if the topic's classification also can be applied to time se
    Provided that each approach is more unique than the other, here it will not be discussed further more 
    about any one of them. A more detailed description will be presented in the Feature Engineering step 
    of the documentation.
+
 
 .. image:: images/progress_four.png
    :width: 800

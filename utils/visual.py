@@ -1,4 +1,5 @@
 """
+
   This module simplifies the usage of the bokeh library
   by reducing the amount of code to plot some figures.
   For example, without this library, to plot a simple line

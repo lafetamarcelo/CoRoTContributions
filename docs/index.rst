@@ -330,7 +330,7 @@ its scope, to check if the topic's classification also can be applied to time se
 
 
 
-.. Indices and tables
+Indices and tables
 ==================
 * :ref:`genindex`
 * :ref:`modindex`
