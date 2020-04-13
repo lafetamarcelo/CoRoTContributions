@@ -3,9 +3,14 @@
 # Default folders
 .pytest*
 *__pycache__*
+*.ipynb_check*
 .vscode/
+features/
 database/
 temp/
+docs/images/nb_gallery/
+docs/_build/latex/
+
 
 #
 #
@@ -13,8 +18,3 @@ temp/
 *.gz
 *.pkl
 *.mat
-
-#
-#
-# Build folders
-docs/_build

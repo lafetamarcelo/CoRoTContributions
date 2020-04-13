@@ -4,28 +4,29 @@
    contain the root `toctree` directive.
 
 Welcome to CoRoT Contribution's documentation!
-==============================================
+================================================
+
 
 Here we present the summary results and developments of the project called
 A Data Analysis Pipeline for the CoRoT Light Curve Data, supported by NSEE
-and FAPESP. The pipeline major three specific topics that will allow any 
-user with basic knowledge in Python to reproduce the analysis.
+and FAPESP. The pipeline major three specific topics that will allow any user 
+with basic knowledge in Python to reproduce the analysis.
 
-First we will present an **introduction** on the CoRoT project and its objectives
+First, we will present an **introduction** on the CoRoT project and its objectives
 for contextualization. The **problem** for this research is then presented, to make it
 clear the objectives of this work. And after we will present the proposed **pipeline** 
-in its major groups, as an overview of the high level steps to get from the raw 
-collected data, to the machine learning analysis.
+in its major groups, as an overview of the high-level steps to get from the raw collected 
+data to the machine learning analysis.
 
-Finally, all steps are presented in a detailed manner, by going trough all the 
-low level computations, with code examples. Leading the way to the final 
+Finally, all steps are presented in a detailed manner, by going through all the 
+low-level computations, with code examples. Leading the way to the final 
 results obtained, and the final reports.
 
 .. seealso:: 
-   This documentation is just a guide trough how one can use the provided python 
-   libraries do go from the raw data collected from the CoRoT sattelite to a simple
-   architecture to be used on machine learning algorithms. If one also want to check
-   other possible applications please check the GitHub repository.
+   This documentation is just a guide trough how one can use the provided python libraries 
+   do go from the raw data collected from the CoRoT satellite to a simple architecture to be 
+   used on machine learning algorithms. If one also wants to check other possible applications 
+   please check the GitHub repository.
 
 
 Introduction to CoRoT
@@ -46,35 +47,37 @@ and several others.
 Problem proposed
 ----------------
 
-Beeing as concise as possible, the main goal is to use machine learning to automate
-the classification of CoRoT collected data, as a way to cluster data that has meaningful
-information to be analised from data that has none. This means that we want to classify 
-data that present possible exo-planets, from data that has information of something other 
-then exo-planets.
+Being as concise as possible, the main goal is to use machine learning to automate 
+the classification of CoRoT collected data, as a way to cluster data that has meaningful 
+information to be analyzed from data that has none. This means that we want to classify 
+data that present possible exo-planets, from data that has information about something 
+other then exo-planets.
 
-To provide a brief introduction on the knowledge needed to achieve this goal, we will 
+To provide a brief introduction to the knowledge needed to achieve this goal, we will 
 describe the data set a little bit. The data set is provided by the repository provided 
-at ..., where it contains files in a *.fits* format. Those are actually pretty common in 
-the astronomical whereabouts, but not for the machine learning public. In each *.fits* 
-file, we will have a light curve time series for a particular CoRoT observation. All 
-observations will have the white light intensity, some will have the RGB, but all will 
-have the white light intensity along the obsevation time. 
+at `the web site <http://idoc-corot.ias.u-psud.fr/sitools/client-user/COROT_N2_PUBLIC_DATA/project-index.html>`_ , 
+where it contains files in a *.fits* format. Those are pretty common in the 
+astronomical whereabouts, but not for the machine learning public. In each *.fits* 
+file, we will have a light curve time series for a particular CoRoT observation. 
+All observations will have the white light intensity, some will have the RGB, but all 
+will have the white light intensity along the observation time. 
 
 Those time series, are not the light intensity provided by the observed exo-planet, but 
-actually, the light intensity emition form the star in which the suposed exo-planet is 
-orbiting around. Notice, that we actually have the Transit photometry information for 
-this particular exo-planet.
+actually, the light intensity emission of the star in which the supposed exo-planet is 
+orbiting around. Notice, that we have the Transit photometry information for this 
+particular exo-planet.
 
 Therefore, we are talking about using the transit photometry time series to classify if 
-in this particular observation there is a chance for the observation be an observation of 
-an exo-planet, ore something else. As an ilustration, one will have time series data, that 
-will contain the planetary transit information such in
+in this particular observation there is a chance for the observation be one of an exo-planet, 
+or something else. As an illustration, one will have time-series data, that will contain 
+the planetary transit information such in
 
 .. image:: images/planetary_transit.svg
+   :width: 800
 
 So the features for the machine learning algorithm must be gathered from the time series,
-and the algorithm must reach for the probability of this observation actually be the 
-observation of a exo-planet.
+and the algorithm must reach for the probability of this observation be the observation 
+of an exo-planet.
 
 
 Pipeline
@@ -89,11 +92,11 @@ The preprocessing pipeline consists on four major steps:
 
 .. admonition:: Notice
 
-   In this items, we introduced the usual percentage of the work amount usually taken 
-   for each particular part of an machine learning project. This is usually the amount 
-   when you have features that does not involve time, dynamic features... therefore 
-   static information, which is most used to happen, such as in problems of customer 
-   clustering, when one has features such 
+   In these items, we introduced the usual percentage of the work amount usually taken for 
+   each particular part of a machine learning project. This is usually the amount when you 
+   have features that do not involve time, dynamic features... therefore static information, 
+   which is mostly used to happen, such as in problems of customer clustering, when one has 
+   features such 
    
    .. hlist::
       :columns: 5
@@ -103,15 +106,15 @@ The preprocessing pipeline consists on four major steps:
       * Address
       * ...
 
-   Note that this features does not change over time. Here we have time series, so we 
-   have to somehow extract from those time series, some static information. So be 
-   prepared for the feature engineering part of the pipeline!
+   Note that these features do not change over time. Here we have a time series, so we have 
+   to somehow extract from those time series, some static information. So be prepared for the 
+   feature engineering part of the pipeline!
 
 .. warning::
 
-   Note that the first three pipeline steps will generate a data file, with the processed 
-   data for the next step. The user can choose to either follow each process step, and by 
-   it self generate and preprocess the data. Or one can go the google drive link bellow 
+   Note that the first three pipeline steps will generate a data file, with the processed data 
+   for the next step. The user can choose to either follow each process step and by it self 
+   generate and preprocess the data. Or one can go the google drive link bellow 
    
    * `Google drive access <https://drive.google.com/drive/folders/19kALbQ5m1ppXxGTVMBaWA4KdIE9pmWfM?usp=sharing>`_ 
    
@@ -119,7 +122,9 @@ The preprocessing pipeline consists on four major steps:
    the three first steps and just have access to the features for the machine learning 
    algorithm, one can download then from the folder `/features` in the google drive.
 
+
 .. image:: images/progress_one.png
+   :width: 800
 
 To get the data on your local machine, first one mush address to the 
 `data repository web site <http://idoc-corot.ias.u-psud.fr/sitools/client-user/COROT_N2_PUBLIC_DATA/project-index.html>`_ 
@@ -144,23 +149,24 @@ Each item is a particular light curve observation, and the user can select and d
 any of the curves that he desires.
 
 After that one might also download another class of light curve observations called 
-eclipsing binaries from the `data repository web site <http://idoc-corot.ias.u-psud.fr/sitools/client-user/COROT_N2_PUBLIC_DATA/project-index.html>`_ 
+eclipsing binaries from the `data repository <http://idoc-corot.ias.u-psud.fr/sitools/client-user/COROT_N2_PUBLIC_DATA/project-index.html>`_ 
 in the Query Forms tab in the FAINT STARS option. There the user will be able to query 
 each curve from their specific CoRoT Id. Then by searching the stars CoRoT Id from the 
 tables at the `CoRoT transit catalog <http://cdsarc.u-strasbg.fr/viz-bin/qcat?J/A+A/619/A97>`_, 
 it is possible to reach a group of close to 1500 eclipsing binaries.
 
 .. note:: 
-   One interesting aspect of the eclipsing binaries is that their light curves is pretty 
-   close to the exo-planets ones. Therefore it is pretty dificult to cluster eclipsing 
-   binaries from exo-planets using only the light curve. This is actually the most 
-   interesting case study of this project.
+   One interesting aspect of the eclipsing binaries is that their light curves are pretty 
+   close to the exo-planets ones. Therefore it is pretty difficult to cluster eclipsing 
+   binaries from exo-planets using only the light curve. This is the most interesting 
+   case study of this project.
 
 .. image:: images/process_download.png
+   :width: 800
 
 After downloading for the three classes (bright stars, confirmed targets and red giants) 
-the user must keep each class in a particular folder, with the name that the user want to 
-label each class. As schematized in the figure above.
+the user must keep each class in a particular folder, with the name that the user wants 
+to label each class. As schematized in the figure above.
 
 It is advised to keep a database folder following the structure::
 
@@ -193,9 +199,9 @@ It is advised to keep a database folder following the structure::
 
 .. admonition:: Drive files access
 
-   If the user does not want to go trough the process presented above and just want to 
+   If the user does not want to go through the process presented above and just want to 
    download the data, already in the format presented above, it is possible to get it 
-   from my personal google drive, or in the direct download link:
+   from my google drive, or in the direct download link:
 
    .. hlist::
       :columns: 2
@@ -206,75 +212,72 @@ It is advised to keep a database folder following the structure::
    The files are something close to tens of GB. Since it contains all the raw fits files
    for the three classes (bright stars, red giants, confirmed targets and eclipsing binaries).
 
-
 .. image:: images/progress_two.png
+   :width: 800
 
-After getting the data from the online repositories, we need to transform this data in 
-to data structures more python friendly, such as dictionaries, lists, arrays, or into 
-files with more suitable formats then *fits* files, *e.g.* pickle files, or MATLAB 
-files (if one wants to algorithms on MATLAB).
+After getting the data from the online repositories, we need to transform this data into data 
+structures more python friendly, such as dictionaries, lists, arrays, or into files with more 
+suitable formats then *fits* files, *e.g.* pickle files, or MATLAB files (if one wants to 
+algorithms on MATLAB).
 
-For that we create here a preprocessing library called :py:class:`Reader <utils.data_helper.Reader>`
-that transform the data from the fits files into simple objects of the class 
-:py:class:`Curve <utils.data_struc.Curve>` that actually simplifies the information 
-access, and make it faster, provided that it works with the so called memory maps and 
-only save HUD tables that will be actually necessary in the future. This process 
-reduces the dataset up to 80\% (the data that was something close to 40 GB, is now
-something close to 7 GB).
+For that, we create here a preprocessing library called :py:class:`Reader <utils.data_helper.Reader>` 
+that transform the data from the fits files into simple objects of the class :py:class:`Curve <utils.data_struc.Curve>` 
+that simplifies the information access, and make it faster, provided that it works with the so-called 
+memory maps and only save HUD tables that will be necessary for the future. This process reduces the 
+dataset up to 80\% (the data that was something close to 40 GB, is now something close to 7 GB).
 
-The next scheme illustrate the process applied to the data to create this interface 
-from the *.fits* format into the python friendly form:
+The next scheme illustrates the process applied to the data to create this interface from the *.fits* 
+format into the python friendly form:
 
 .. image:: images/process_reading.png
+   :width: 800
 
-From the above scheme, we can see that the process starts from the *fits* files and 
-after passing trough the :py:class:`Reader <utils.data_helper.Reader>`, we achieve 
-an structure that with simple calls to the information variables, it is possible to 
-get that variable data in `dict` and/or `list` formats.
+From the above scheme, we can see that the process starts from the *fits* files and after passing 
+through the :py:class:`Reader <utils.data_helper.Reader>`, we achieve a structure that with simple calls 
+to the information variables, it is possible to get that variable data in `dict` and/or `list` formats.
 
-After reading the data, and before saving in a format such as the pickle file, we 
-also apply a preprocessing technique to filter out the noise of the time series. 
-This technique is apllied here instead of in the feature engineering step, just to 
-show the user the importance to undestand the feature processing part with an 
-information extration practical example. Showing that a simple filtering technique 
-can enable the access to several other informations. And by that, engaging the user 
-to see the next step of the pipeline, wich will have several other feature engineering 
-techniques. 
+After reading the data, and before saving in a format such as the pickle file, we also apply a preprocessing 
+technique to filter out the noise of the time series. This technique is applied here instead of in the 
+feature engineering step, just to show the user the importance to understand the feature processing part 
+with an information extraction practical example. Showing that a simple filtering technique can enable access 
+to several other pieces of information. And by that, engaging the user to see the next step of the pipeline, 
+which will have several other feature engineering techniques. 
+
+----
 
 .. image:: images/progress_three.png
+   :width: 800
 
-The feature engineering process is the part that takes most work in a machine learning 
-project. It is the part where one must extract meaningful information from the data to 
-provide for the machine learning algorithms. But interesting enough, one cannot know 
-before hand what information is actually the best one for the machine learning algorithm.
-Most machine learning projects, the data is actually static (does not depend on time) and 
-have a simpler path to be taken, where the only usual procedure done in the feature 
-engineering is the common normalization and feature reduction (when the dimension of the 
-features are very high and the learning algorithm is pretty heavy). But in the case of 
-time series classification, the user have dynamic data... wich needs to be transformed to 
-static data, to then go trough the common feature engineering processes.
+The feature engineering process is the part that takes most work in a machine learning project. It is the 
+part where one must extract meaningful information from the data to provide for the machine learning 
+algorithms. But interesting enough, one cannot know beforehand what information is actually the best one 
+for the machine learning algorithm. Most machine learning projects, the data is actually static (does 
+not depend on time) and have a simpler path to be taken, where the only usual procedure is done in the 
+feature engineering is the common normalization and feature reduction (when the dimension of the features 
+are very high and the learning algorithm is pretty heavy). But in the case of time series classification, 
+the user has dynamic data... which needs to be transformed to static data, to then go through the common 
+feature engineering processes.
 
-There are several paths that one might take to get static information from the data when 
-one has a time series in the hands. Some of the techniques are presented:
+There are several paths that one might take to get static information from the data when one has a time 
+series in the hands. Some of the techniques are presented:
 
 * Power spectrum
 * Periodograms
 * Number of peaks
 * Dynamic insights
 
-The first two, are not much than the Fourier representation of the data, wich is actually 
-the most charateristic information of the time series. The second is just a common used 
-info in the internet tutorials (which in a very noisy scenario, will only generate more 
-noisy data). The last one usually is a very powerfull approach, in wich we first use the 
-data to estimate a dynamical model of the time series phenomenon, and then use that model 
-parameters to clusterize each time series. The most interesting part of this approach, is 
-that it relies on the leaning algorithm focus to enhance certain behaviors of the dynamic 
-model and mitigate the effects of others.
+The first two, are not much than the Fourier representation of the data, which is actually the most 
+characteristic information of the time series. The second is just commonly used info in the internet 
+tutorials (which is a very noisy scenario, which will only generate more noisy data). The last one usually 
+is a very powerful approach, in which, we first use the data to estimate a dynamical model of the time 
+series phenomenon, and then use that model parameter to cluster each time series. The most interesting 
+part of this approach is that it relies on the leaning algorithm focus to enhance certain behaviors of 
+the dynamic model and mitigate the effects of others.
 
-Usually people abuse of simple least squares or deterministic techniques to acquire the 
-parameters of a particular structure model. Here we will present a stochastic approach of 
-this technique, where we will estimate stochastic and probabilistic models for the time 
-series, and their parameters will then be used as features for the machine learnig process.
+Usually, people abuse simple least-squares or deterministic techniques to acquire the parameters of a 
+particular structure model. Here we will present a stochastic approach of this technique, where we will 
+estimate stochastic and probabilistic models for the time series, and their parameters will then be used 
+as features for the machine learning process.
 
 Here the bellow features will be generated for the machine learning algorithm:
 
@@ -283,14 +286,22 @@ Here the bellow features will be generated for the machine learning algorithm:
 * Hidden Markov Models
 * Latent Dirichlet Allocation
 
-The first one is the classical technique (wich present several concerns and computation 
-problems, due to the Fourier algorithms). The second one use probabilistic Bayes Models
-parameters as features. The third use the estimated parameters for Hidden Markov Models 
-as features. And the fourth one actually is a very complex technique usually used to 
-cluster text into speach topics, and here is used outside its scope, to check if the 
-topics classification also can be applied to time series dependencies.
+The first one is the classical technique (which present several concerns and computation problems, due 
+to the Fourier algorithms). The second one uses probabilistic Bayes Models parameters as features. The 
+third uses the estimated parameters for Hidden Markov Models as features. And the fourth one actually 
+is a very complex technique usually used to cluster text into speech topics, and here is used outside 
+its scope, to check if the topic's classification also can be applied to time series dependencies.
+
+.. note::
+   Provided that each approach is more unique than the other, here it will not be discussed further more 
+   about any one of them. A more detailed description will be presented in the Feature Engineering step 
+   of the documentation.
+
 
 .. image:: images/progress_four.png
+   :width: 800
+
+
 
 .. toctree::
    :maxdepth: 3
@@ -308,8 +319,8 @@ topics classification also can be applied to time series dependencies.
    :maxdepth: 3
    :caption: Machine Learning
 
-   03 - Machine Learning
-
+   03 - Machine Learning - XGBoost Classifier
+   03 - Machine Learning - Decision Trees
 
 .. toctree::
    :maxdepth: 3
@@ -319,9 +330,8 @@ topics classification also can be applied to time series dependencies.
 
 
 
-Indices and tables
+.. Indices and tables
 ==================
-
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`

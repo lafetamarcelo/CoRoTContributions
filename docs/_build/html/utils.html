@@ -95,6 +95,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html">Read <em>.fits</em> raw data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Preprocessing-data">Preprocessing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Resampling-series">Resampling series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Filtering-series">Filtering series</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Application-example">Application example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Generation-algorithms">Generation algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="01 - Reading and Plotting.html#Save-pre-processed-data">Save pre-processed data</a></li>
 </ul>
@@ -102,13 +105,13 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html">Reading the data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Frequency-response">Feature: Frequency response</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Bayes-likelihood">Feature: Bayes likelihood</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Naive-Bayes-likelihood">Feature: Naive Bayes likelihood</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Feature:-Markov-Hidden-Models">Feature: Markov Hidden Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02 - Building and creating features.html#Examples">Examples</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Machine Learning</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="03 - Machine Learning.html">XGBoost Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html">XGBoost Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html">Decision trees</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
@@ -230,8 +233,8 @@
 <p>This module is responsible to read the <em>.fits</em> files and return the 
 readed data as a <a class="reference internal" href="#utils.data_struc.Curve" title="utils.data_struc.Curve"><code class="xref py py-class docutils literal notranslate"><span class="pre">Curve</span></code></a> objects, 
 which is a more suitable format to read the data. Or one might choose 
-to only receive the  data in a simple type as possible such as lists 
-and dictionaries, thus by chosing this method, one will loose the 
+to only receive the data in a simple type as possible such as lists 
+and dictionaries, thus by choosing this method, one will loose the 
 hability to use the inherited computing pre processing features from 
 the <a class="reference internal" href="#utils.data_struc.Curve" title="utils.data_struc.Curve"><code class="xref py py-class docutils literal notranslate"><span class="pre">Curve</span></code></a> format.</p>
 <dl class="class">
@@ -244,7 +247,7 @@ environment. It supports both unique <em>.fits</em> files such as a batch
 processing approach, using folders filled with several <em>.fits</em> files.</p>
 <p>As simple as it is to call a class, the reader package has no usage
 complication. For one to import and use it’s methods, it is only 
-necessary to do like this:</p>
+necessary to do:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">utils.data_helper</span> <span class="k">as</span> <span class="nn">dh</span>
 <span class="n">myReader</span> <span class="o">=</span> <span class="n">dh</span><span class="o">.</span><span class="n">Reader</span><span class="p">()</span>
 </pre></div>
@@ -258,7 +261,7 @@ All methods have a particular parameter, with default
 <code class="docutils literal notranslate"><span class="pre">simple_out=False</span></code> thence returning the data as 
 <a class="reference internal" href="#utils.data_struc.Curve" title="utils.data_struc.Curve"><code class="xref py py-class docutils literal notranslate"><span class="pre">Curve</span></code></a>. If one defines the 
 parameter <code class="docutils literal notranslate"><span class="pre">simple_out=True</span></code>, one will receive the obtained data 
-as dictionaries of indexed curves in lists, wich is not advised.</p>
+as dictionaries of indexed curves in lists, which is not advisable.</p>
 </div>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.1: </span>The <cite>from_file</cite> and <cite>from_folder</cite> methods where added.</p>
@@ -424,9 +427,9 @@ to standard time representations.</p>
 <div class="section" id="module-utils.visual">
 <span id="visualization"></span><h2>Visualization<a class="headerlink" href="#module-utils.visual" title="Permalink to this headline">¶</a></h2>
 <p>This module simplifies the usage of the bokeh library
-by reducing the amount of code to plot a simple figure.
+by reducing the amount of code to plot some figures.
 For example, without this library, to plot a simple line
-with the bokeh library, one must need to:</p>
+with the bokeh library, one must do something like:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bokeh.palettes</span> <span class="kn">import</span> <span class="n">Magma</span>
 <span class="kn">from</span> <span class="nn">bokeh.layouts</span> <span class="kn">import</span> <span class="n">column</span>
 <span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">show</span>
@@ -468,29 +471,29 @@ just:</p>
 <span class="n">visual</span><span class="o">.</span><span class="n">show_plot</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Simple as that… It follows a defualt plotting stily for 
-each plot, presented in the <em>./utils/configs/plot.yaml</em>.
+<p>Simple as that… It follows a defualt plotting style for 
+each plot, presented in the <em>/utils/configs/plot.yaml</em>.
 And the user just need to pass the parameters that he
-want to change from this library. It also provides some 
-pre-computation to make more complex graphs, such as box 
+want to change from this default style. It also provides 
+some pre-computation to make more complex graphs, such as box 
 plots, histograms and so on.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is just a library to simplify most plots used during 
-the notebooks to not populate the algorithm with unecessary
+the notebooks to not populate the study with unecessary 
 code… The user can use any library desired to do this same
 plots.</p>
 <p>Also the user can change the <em>plot.yaml</em> file to set any default
 plot style that one might want. Please, for that check out the 
-file in <em>./utils/configs/plot.yaml</em>.</p>
+file in <em>/utils/configs/plot.yaml</em>.</p>
 </div>
 <dl class="function">
 <dt id="utils.visual.box_plot">
 <code class="sig-prename descclassname">utils.visual.</code><code class="sig-name descname">box_plot</code><span class="sig-paren">(</span><em class="sig-param">score=None</em>, <em class="sig-param">labels=None</em>, <em class="sig-param">opts=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#utils.visual.box_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a Bokeh figure object and populate its box plot
-propertie with the provided information. To create a 
+properties with the provided information. To create a 
 box plot, you actually need to combine two segment,
-vbar, and rect object from Bokeh. This method already
+a vbar, and a rect object from Bokeh. This method already
 does that for you. It also already computes the 
 statistical median, mean and each quantile.</p>
 <dl class="field-list simple">
@@ -498,12 +501,12 @@ statistical median, mean and each quantile.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>score</strong> (<em>list</em>) – The list with all values of the distributions</p></li>
 <li><p><strong>labels</strong> (<em>list</em>) – The list with the group label for each value of score</p></li>
-<li><p><strong>opts</strong> (<em>dict</em>) – The desired options of the plot.yaml in dictionary format</p></li>
-<li><p><strong>kwargs</strong> – The desired options of the plot.yaml in directive format</p></li>
+<li><p><strong>opts</strong> (<em>dict</em>) – The desired options of the <em>plot.yaml</em> in dictionary format</p></li>
+<li><p><strong>kwargs</strong> – The desired options of the <em>plot.yaml</em> in directive format</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A Bokeh figure object with the line properties filled</p>
+<dd class="field-even"><p>A Bokeh figure object with the box plot necessary properties filled</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>bokeh.Figure</p>
@@ -519,7 +522,7 @@ user provided plot options into one dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>default</strong> (<em>dict</em>) – The default style guide dict from plot.yaml</p></li>
+<li><p><strong>default</strong> (<em>dict</em>) – The default style guide dict from <em>plot.yaml</em></p></li>
 <li><p><strong>provided</strong> (<em>dict</em>) – The user provided properties</p></li>
 </ul>
 </dd>
@@ -569,8 +572,8 @@ propertie with the provided information.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x_data</strong> (<em>ndarray</em>) – The ndarray with x axis values</p></li>
 <li><p><strong>y_data</strong> (<em>ndarray</em>) – The ndarray with y axis values</p></li>
-<li><p><strong>opts</strong> (<em>dict</em>) – The desired options of the plot.yaml in dictionary format</p></li>
-<li><p><strong>kwargs</strong> – The desired options of the plot.yaml in directive format</p></li>
+<li><p><strong>opts</strong> (<em>dict</em>) – The desired options of the <em>plot.yaml</em> in dictionary format</p></li>
+<li><p><strong>kwargs</strong> – The desired options of the <em>plot.yaml</em> in directive format</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -593,8 +596,8 @@ y_data list parameter of this function.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x_data</strong> (<em>list</em>) – The list with a ndarray data for the x axis of each line</p></li>
 <li><p><strong>y_data</strong> (<em>list</em>) – The list with a ndarray data for the y axis of each line</p></li>
-<li><p><strong>opts</strong> (<em>dict</em>) – The desired options of the plot.yaml in dictionary format</p></li>
-<li><p><strong>kwargs</strong> – The desired options of the plot.yaml in directive format</p></li>
+<li><p><strong>opts</strong> (<em>dict</em>) – The desired options of the <em>plot.yaml</em> in dictionary format</p></li>
+<li><p><strong>kwargs</strong> – The desired options of the <em>plot.yaml</em> in directive format</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

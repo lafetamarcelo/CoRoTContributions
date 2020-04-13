@@ -22,6 +22,28 @@ line_plot:
     x_grid:
       band_alpha: 0.05
 
+multline_plot:
+  fig_size: [600, 400]
+  line_width: [3]
+  muted_alpha: 0.2
+  legend_label: ''
+  line_cap: 'round'
+  color_index: [2]
+  x_axis:
+    label: ''
+    type: 'auto'
+  y_axis:
+    label: ''
+    type: 'auto'
+  legend:
+    location: 'top_right'
+    click_policy: 'mute'
+  dec:
+    grid:
+      line_alpha: 0
+    x_grid:
+      band_alpha: 0.05
+
 box_plot:
   fig_size: [600, 400]
   line_width: 3

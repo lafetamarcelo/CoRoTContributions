@@ -1,8 +1,8 @@
 """
   This module simplifies the usage of the bokeh library
-  by reducing the amount of code to plot a simple figure.
+  by reducing the amount of code to plot some figures.
   For example, without this library, to plot a simple line
-  with the bokeh library, one must need to::
+  with the bokeh library, one must do something like::
 
     from bokeh.palettes import Magma
     from bokeh.layouts import column
@@ -44,23 +44,23 @@
                         x_axis={'label': 'Some label for x axis'})
     visual.show_plot(p)
 
-  Simple as that... It follows a defualt plotting stily for 
-  each plot, presented in the *./utils/configs/plot.yaml*.
+  Simple as that... It follows a defualt plotting style for 
+  each plot, presented in the */utils/configs/plot.yaml*.
   And the user just need to pass the parameters that he
-  want to change from this library. It also provides some 
-  pre-computation to make more complex graphs, such as box 
+  want to change from this default style. It also provides 
+  some pre-computation to make more complex graphs, such as box 
   plots, histograms and so on.
 
   .. note:: 
 
     This is just a library to simplify most plots used during 
-    the notebooks to not populate the algorithm with unecessary
+    the notebooks to not populate the study with unecessary 
     code... The user can use any library desired to do this same
     plots.
 
     Also the user can change the *plot.yaml* file to set any default
     plot style that one might want. Please, for that check out the 
-    file in *./utils/configs/plot.yaml*.
+    file in */utils/configs/plot.yaml*.
 """
 
 import os
@@ -76,7 +76,7 @@ from ipywidgets import interact
 from bokeh.palettes import Magma
 from bokeh.layouts import column
 from bokeh.plotting import figure, show
-from bokeh.models import ColumnDataSource
+from bokeh.models import ColumnDataSource, LassoSelectTool, HoverTool
 from bokeh.io import output_notebook, push_notebook
 
 
@@ -85,7 +85,7 @@ def handle_opts(default, provided):
   Merge the default (set by the plot.yaml file) and 
   user provided plot options into one dictionary.
 
-  :param dict default: The default style guide dict from plot.yaml
+  :param dict default: The default style guide dict from *plot.yaml*
   :param dict provided: The user provided properties
 
   :return: A dict with the merged default and provided plot options
@@ -114,9 +114,15 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 plotLog = logging.getLogger("plot_log")
 
 yaml = YAML()
-conf_path = '../utils/configs/plot.yaml'
-with open(conf_path, 'r') as conf_file:
-  def_fig_opts = yaml.load(conf_file)
+try:
+  conf_path = './utils/configs/plot.yaml'
+  with open(conf_path, 'r') as conf_file:
+    def_fig_opts = yaml.load(conf_file)
+except:
+  conf_path = '../utils/configs/plot.yaml'
+  with open(conf_path, 'r') as conf_file:
+    def_fig_opts = yaml.load(conf_file)
+
 
 def line_plot(
     x_data=None,
@@ -129,8 +135,8 @@ def line_plot(
 
   :param ndarray x_data: The ndarray with x axis values
   :param ndarray y_data: The ndarray with y axis values
-  :param dict opts: The desired options of the plot.yaml in dictionary format
-  :param kwargs: The desired options of the plot.yaml in directive format
+  :param dict opts: The desired options of the *plot.yaml* in dictionary format
+  :param kwargs: The desired options of the *plot.yaml* in directive format
 
   :return: A Bokeh figure object with the line properties filled
   :rtype: bokeh.Figure
@@ -171,6 +177,8 @@ def line_plot(
     color=color_theme[fopts['color_index']], 
     muted_alpha=fopts['muted_alpha'],
     line_cap=fopts['line_cap'])
+  p.add_tools(LassoSelectTool())
+  p.add_tools(HoverTool())
   p.legend.location = fopts['legend']['location']
   p.legend.click_policy = fopts['legend']['click_policy']
   return p
@@ -183,18 +191,18 @@ def box_plot(
     **kwargs):
   """
   Create a Bokeh figure object and populate its box plot
-  propertie with the provided information. To create a 
+  properties with the provided information. To create a 
   box plot, you actually need to combine two segment,
-  vbar, and rect object from Bokeh. This method already
+  a vbar, and a rect object from Bokeh. This method already
   does that for you. It also already computes the 
   statistical median, mean and each quantile.
 
   :param list score: The list with all values of the distributions
   :param list labels: The list with the group label for each value of score
-  :param dict opts: The desired options of the plot.yaml in dictionary format
-  :param kwargs: The desired options of the plot.yaml in directive format
+  :param dict opts: The desired options of the *plot.yaml* in dictionary format
+  :param kwargs: The desired options of the *plot.yaml* in directive format
 
-  :return: A Bokeh figure object with the line properties filled
+  :return: A Bokeh figure object with the box plot necessary properties filled
   :rtype: bokeh.Figure
   """
   # Define the figure options
@@ -324,6 +332,9 @@ def hist_plot(
   # Place the information on plot
   p.quad(top=hist, bottom=0, left=edges[:-1], right=edges[1:],
     fill_color=color_theme[fopts['color_index']], line_color="white", alpha=0.5)
+  # Include some plot tools
+  p.add_tools(LassoSelectTool())
+  p.add_tools(HoverTool())
   return p
 
 def multline_plot(
@@ -338,8 +349,8 @@ def multline_plot(
 
   :param list x_data: The list with a ndarray data for the x axis of each line
   :param list y_data: The list with a ndarray data for the y axis of each line
-  :param dict opts: The desired options of the plot.yaml in dictionary format
-  :param kwargs: The desired options of the plot.yaml in directive format
+  :param dict opts: The desired options of the *plot.yaml* in dictionary format
+  :param kwargs: The desired options of the *plot.yaml* in directive format
 
   :return: A Bokeh figure object with the line properties filled
   :rtype: bokeh.Figure
@@ -353,7 +364,7 @@ def multline_plot(
     for opt in kwargs:
       yopts[opt] = kwargs[opt]
   fopts = handle_opts(
-    def_fig_opts['line_plot'], yopts)
+    def_fig_opts['multline_plot'], yopts)
   # Check axis data
   if x_data is None:
     plotLog.warning("No x axis data was provided...")
@@ -380,13 +391,23 @@ def multline_plot(
     for k in range(len(y_data)):
       x_data.append(data)
   for x, y in zip(x_data, y_data):
-    p.line(x, y,
-      legend_label=fopts['legend_label'][ind_track],
-      line_width=fopts['line_width'],
-      color=color_theme[fopts['color_index'][ind_track]], 
-      muted_alpha=fopts['muted_alpha'],
-      line_cap=fopts['line_cap'])
+    try:
+      p.line(x, y,
+        legend_label=fopts['legend_label'][ind_track],
+        line_width=fopts['line_width'][ind_track],
+        color=color_theme[fopts['color_index'][ind_track]], 
+        muted_alpha=fopts['muted_alpha'],
+        line_cap=fopts['line_cap'])
+    except:
+      p.line(x, y,
+        legend_label=fopts['legend_label'][ind_track],
+        line_width=fopts['line_width'][0],
+        color=color_theme[fopts['color_index'][ind_track]], 
+        muted_alpha=fopts['muted_alpha'],
+        line_cap=fopts['line_cap'])
     ind_track += 1
+  p.add_tools(LassoSelectTool())
+  p.add_tools(HoverTool())
   p.legend.location = fopts['legend']['location']
   p.legend.click_policy = fopts['legend']['click_policy']
   return p

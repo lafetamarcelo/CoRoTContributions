@@ -18,12 +18,12 @@ import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
-project = 'Contributions'
-copyright = '2020, Marcelo Lima'
-author = 'Marcelo Lima'
+project = 'CoRoT Contributions'
+copyright = '2020, Marcelo Mendes Lafetá Lima'
+author = 'Marcelo Mendes Lafetá Lima'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = '1.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -39,7 +39,10 @@ extensions = [
   'sphinx.ext.autodoc',
   'sphinx.ext.mathjax',
   'sphinx_copybutton',
-  'sphinx.ext.githubpages'
+  'sphinx.ext.githubpages',
+  'sphinx.ext.imgconverter',
+  'bokeh.sphinxext.bokeh_autodoc',
+  'bokeh.sphinxext.bokeh_plot'
 ]
 
 highlight_language = 'python3'

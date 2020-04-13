@@ -3,8 +3,8 @@
     This module is responsible to read the *.fits* files and return the 
     readed data as a :py:class:`Curve <utils.data_struc.Curve>` objects, 
     which is a more suitable format to read the data. Or one might choose 
-    to only receive the  data in a simple type as possible such as lists 
-    and dictionaries, thus by chosing this method, one will loose the 
+    to only receive the data in a simple type as possible such as lists 
+    and dictionaries, thus by choosing this method, one will loose the 
     hability to use the inherited computing pre processing features from 
     the :py:class:`Curve <utils.data_struc.Curve>` format.
 """
@@ -27,7 +27,7 @@ class Reader:
 
     As simple as it is to call a class, the reader package has no usage
     complication. For one to import and use it's methods, it is only 
-    necessary to do like this::
+    necessary to do::
 
         import utils.data_helper as dh
         myReader = dh.Reader()
@@ -41,7 +41,7 @@ class Reader:
         ``simple_out=False`` thence returning the data as 
         :py:class:`Curve <utils.data_struc.Curve>`. If one defines the 
         parameter ``simple_out=True``, one will receive the obtained data 
-        as dictionaries of indexed curves in lists, wich is not advised.
+        as dictionaries of indexed curves in lists, which is not advisable.
     
     .. versionadded:: 0.1
         The `from_file` and `from_folder` methods where added.
