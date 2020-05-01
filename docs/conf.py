@@ -18,12 +18,12 @@ import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
-project = 'Contributions'
+project = 'CoRoT Contributions'
 copyright = '2020, Marcelo Lima'
-author = 'Marcelo Lima'
+author = 'Marcelo Mendes Lafetá Lima'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = '1.0'
 
 
 # -- General configuration ---------------------------------------------------

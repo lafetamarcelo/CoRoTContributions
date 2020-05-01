@@ -7,41 +7,68 @@ Welcome to CoRoT Contribution's documentation!
 ================================================
 
 
-Here we present the summary results and developments of the project called
-A Data Analysis Pipeline for the CoRoT Light Curve Data, supported by NSEE
-and FAPESP. The pipeline major three specific topics that will allow any user 
-with basic knowledge in Python to reproduce the analysis.
+Here the summary results and developments of the project called A Data Analysis Pipeline 
+for the CoRoT Light Curve Data, supported by NSEE and FAPESP. The pipeline major three 
+specific topics that will allow any user with basic knowledge in Python to reproduce the 
+analysis. The work is called here also by its repository name: *CoRoT Contributions*. 
 
-First, we will present an **introduction** on the CoRoT project and its objectives
-for contextualization. The **problem** for this research is then presented, to make it
-clear the objectives of this work. And after we will present the proposed **pipeline** 
-in its major groups, as an overview of the high-level steps to get from the raw collected 
-data to the machine learning analysis.
+This work fundamentally rely on multidiscipline knowledge, passing by computation, 
+mathematics, signal analysis and phisycs. The main idea is to show how to implement this 
+fields knowledge to solve a practical problem, therefore no introduction level discussion 
+is expected. The focus relies on high level discution on most of those subjects.
 
-Finally, all steps are presented in a detailed manner, by going through all the 
-low-level computations, with code examples. Leading the way to the final 
-results obtained, and the final reports.
+In this documentation first an **Introduction** on the CoRoT mission is presented to bring 
+the reader more close to the problem faced by the astronomical community and clearify the 
+importance of the proposed problem. Thence, the **Problem** that will be faced is presented
+and discussed to introduce the necessary knowledge to interpret the data and understand some 
+decisions taken during the project developments. Finally the data processing **Pipeline** is 
+presented with all the algorithms and analysis necessary to get to the exoplanet classifier 
+presented as the project results.
+
+Finally, all pipeline steps are presented in a detailed manner, by going through all the 
+low-level computations, with code examples. Leading the way to the final results obtained, 
+and reports.
 
 .. seealso:: 
    This documentation is just a guide trough how one can use the provided python libraries 
-   do go from the raw data collected from the CoRoT satellite to a simple architecture to be 
-   used on machine learning algorithms. If one also wants to check other possible applications 
-   please check the GitHub repository.
+   do go from the raw data collected from the CoRoT satellite, to a simple architecture to be 
+   used on machine learning algorithms. Then, some examples of how to use theses features on 
+   machine learning classifiers are presented. If one also wants to check other possible 
+   applications please check the GitHub repository.
 
 
 Introduction to CoRoT
 ---------------------
 
+The CoRoT (Convection, Rotation and planetary Transits) was the first mission dedicated and 
+designed for the exoplanetary research. Operated in a lower Earth orbit, has the objectives of 
+using its CCD widefield cameras to obtain and gather light information for the study of supposed 
+exoplanetary behaviors. The project, launched in 2006 had nominal lifetime of 2.5 years, but it 
+actually ended in 2014 when it was de-orbited. The project was led by CNES, with contributions 
+from ESA, Austria, Belgium, Germany, Spain and Brazil.
 
-There are several methods to detect exo-planets and get information from them, as 
-an example, there are:
+One of the key information collected by the CCD cameras was the light intensity from the planets, 
+which there is a collection of thousands of light curves observations of different candidates. 
+Interesting enough, this information are actually from exoplanets candidates, and the astronomical 
+community is now working on classifying those observations to map which ones are actually exoplanets 
+from those who are not. There are several methods to detect exoplanets and get information from them, 
+as an example, there are:
 
 - Radial velocity
 - Transit photometry
 - Relativistic beaming
 - Gravitation microlensing
 
-and several others. 
+and several others. Here, teh transit photometry approach will be used, and a further explanation on 
+this technique will be presented on the next section. No more will be discussed from the other thecniques, 
+but the reader is free to check it out how those work. The only interesting subject that most of those 
+has in common is that their collected information are time series (dynamical information), and most of 
+the techniques presented in this study could be used similarly for all of them.
+
+For more reference on works regarding the classification of the light curves observations one 
+might check the following `M. Deleuil1, S. Aigrain2, et al <https://www.aanda.org/articles/aa/pdf/2018/11/aa31068-17.pdf>`_.
+
+For more details on the CoRoT mission please check out the `ESA CoRoT site <https://sci.esa.int/web/corot>`_.
 
 
 Problem proposed
@@ -301,7 +328,58 @@ its scope, to check if the topic's classification also can be applied to time se
 .. image:: images/progress_four.png
    :width: 800
 
+The machine learning step of the pipeline, does nothing much more than the basics machine learning procedures
+once the time series static information is provided. From the last step, simple features where build from the 
+time series. using the following techniques:
 
+* Periodograms: produces the evenly reshaped power spectrums
+* Bayes marginal likelihood: produces the Ridge Bayesian model parameters
+* Hidden Markov Models: produces the Markov trasition matrices
+
+And now it is desired to build a machine learning algorithm that will take each one of those features and try 
+to classify the observation classes. Therefore, we just want to distinguish between the four labels:
+
+* Red giants
+* Confirmed targets or exo-planets
+* Bright stars
+* Eclipsing binaries
+
+The astronomical community show a particular interest in distinguish specifically two of those classes from each 
+other: the confirmed targets from the eclipsing binaries. This challenge show itself to be appealing because there 
+is several difficulties in distinguishing the eclipsing binaries and exo planets light curve information using 
+classical theory. Therefore, having an automate algorithm capable of solving this enigma would be most attractive.
+
+Thence here we present three major algorithms to classify the data from exo-planets and eclipsing binaries. The 
+first is using the `XGBoost library <https://xgboost.readthedocs.io/en/latest/>`_, since it is proven to be a 
+very powerful algorithm in machine learning forums and competitions, such as `Kaggle <https://www.kaggle.com/>`_.
+Also, some classic algorithms will be used, such as Decision Trees from the `scikit learn <https://scikit-learn.org/stable/>`_ 
+packages to compare the boosting feature capability from the XGBoost algorithms, and some powerful mathematical 
+algorithms such as Support Vector Machines classifiers, which is supposed to be analytically optimal.
+
+All the algorithm will follow the common machine learning path, such as:
+
+* Read the features and labels
+* Encode, normalize, reduce features and reshape
+* Make train and test data-set
+* Build the machine learning model
+* Search hyper parameters
+* Train machine learning model
+* Validate the model
+* Analyse the results
+
+So the reader can understand that for any of the models and any of the features, after the Feature Engineering 
+pipeline, the algorithm is pretty much the same. Therefore, the price of dealing with time series data, is that 
+one must have the Feature Engineering pipeline to extract static information from the data, before going through 
+the common machine learning pipeline.
+
+.. note::
+   As in the previous pipeline step, the algorithms will not be further discussed here. If the reader wants, a 
+   more detailed description of each machine learning approach can be found on its respective chapter of the 
+   documentation, with application example.
+
+
+Reading and Plotting
+--------------------
 
 .. toctree::
    :maxdepth: 3
@@ -309,11 +387,19 @@ its scope, to check if the topic's classification also can be applied to time se
 
    01 - Reading and Plotting
 
+
+Feature Engineering
+--------------------
+
 .. toctree::
    :maxdepth: 3
    :caption: Feature Engineering
 
    02 - Building and creating features
+
+
+Machine learning
+----------------
 
 .. toctree::
    :maxdepth: 3
@@ -321,6 +407,9 @@ its scope, to check if the topic's classification also can be applied to time se
 
    03 - Machine Learning - XGBoost Classifier
    03 - Machine Learning - Decision Trees
+
+Code APIs
+---------
 
 .. toctree::
    :maxdepth: 3
