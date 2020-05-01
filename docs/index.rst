@@ -100,7 +100,7 @@ or something else. As an illustration, one will have time-series data, that will
 the planetary transit information such in
 
 .. image:: images/planetary_transit.svg
-   :width: 800
+   :width: 600
 
 So the features for the machine learning algorithm must be gathered from the time series,
 and the algorithm must reach for the probability of this observation be the observation 
