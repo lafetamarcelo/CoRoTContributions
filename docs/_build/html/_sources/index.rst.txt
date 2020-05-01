@@ -99,8 +99,8 @@ in this particular observation there is a chance for the observation be one of a
 or something else. As an illustration, one will have time-series data, that will contain 
 the planetary transit information such in
 
-.. image:: images/planetary_transit.svg
-   :width: 600
+.. image:: images/planetary_transit.png
+   :width: 800
 
 So the features for the machine learning algorithm must be gathered from the time series,
 and the algorithm must reach for the probability of this observation be the observation 
