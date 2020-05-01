@@ -1,5 +1,5 @@
-CoRoTContributions
-==================
+CoRoT Contributions
+===================
 
 .. toctree::
    :maxdepth: 4

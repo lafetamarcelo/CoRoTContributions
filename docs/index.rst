@@ -378,18 +378,12 @@ the common machine learning pipeline.
    documentation, with application example.
 
 
-Reading and Plotting
---------------------
-
 .. toctree::
    :maxdepth: 3
    :caption: Reading and Plotting
 
    01 - Reading and Plotting
 
-
-Feature Engineering
---------------------
 
 .. toctree::
    :maxdepth: 3
@@ -398,9 +392,6 @@ Feature Engineering
    02 - Building and creating features
 
 
-Machine learning
-----------------
-
 .. toctree::
    :maxdepth: 3
    :caption: Machine Learning
@@ -408,12 +399,10 @@ Machine learning
    03 - Machine Learning - XGBoost Classifier
    03 - Machine Learning - Decision Trees
 
-Code APIs
----------
 
 .. toctree::
    :maxdepth: 3
-   :caption: Contents:
+   :caption: Code APIs
 
    modules
 
