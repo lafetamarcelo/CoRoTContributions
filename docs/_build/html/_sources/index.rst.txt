@@ -88,13 +88,8 @@ at `the web site <http://idoc-corot.ias.u-psud.fr/sitools/client-user/COROT_N2_P
 where it contains files in a *.fits* format. Those are pretty common in the 
 astronomical whereabouts, but not for the machine learning public. In each *.fits* 
 file, we will have a light curve time series for a particular CoRoT observation. 
-All observations will have the white light intensity, some will have the RGB, but all 
-will have the white light intensity along the observation time. 
+All observations will have the white light intensity, some will have the RGB. 
 
-Those time series, are not the light intensity provided by the observed exo-planet, but 
-actually, the light intensity emission of the star in which the supposed exo-planet is 
-orbiting around. Notice, that we have the Transit photometry information for this 
-particular exo-planet.
 
 Therefore, we are talking about using the transit photometry time series to classify if 
 in this particular observation there is a chance for the observation be one of an exo-planet, 
@@ -115,9 +110,15 @@ Pipeline
 The preprocessing pipeline consists on four major steps:
 
 * Getting the data - (10\%)
-* Reading in Python - (20\%)
+* Preprocessing in Python - (20\%)
 * Feature Engineering - (50\%)
 * Machine Leaning - (20\%)
+
+
+.. image:: images/pipeline.png
+   :align: center
+   :width: 550
+
 
 .. admonition:: Notice
 
@@ -241,7 +242,7 @@ It is advised to keep a database folder following the structure::
    The files are something close to tens of GB. Since it contains all the raw fits files
    for the three classes (bright stars, red giants, confirmed targets and eclipsing binaries).
 
----
+
 
 .. image:: images/progress_two.png
    :width: 800
@@ -274,7 +275,7 @@ with an information extraction practical example. Showing that a simple filterin
 to several other pieces of information. And by that, engaging the user to see the next step of the pipeline, 
 which will have several other feature engineering techniques. 
 
-----
+
 
 .. image:: images/progress_three.png
    :width: 800
@@ -328,7 +329,7 @@ its scope, to check if the topic's classification also can be applied to time se
    about any one of them. A more detailed description will be presented in the Feature Engineering step 
    of the documentation.
 
----
+
 
 .. image:: images/progress_four.png
    :width: 800
@@ -413,7 +414,7 @@ that the XGBoost algorithm, was able to provide a **93%** accuracy on **exoplane
 
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Machine Learning
 
    03 - Machine Learning - XGBoost Classifier
@@ -421,7 +422,7 @@ that the XGBoost algorithm, was able to provide a **93%** accuracy on **exoplane
 
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Code APIs
 
    modules

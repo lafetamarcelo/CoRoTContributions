@@ -114,6 +114,12 @@ The preprocessing pipeline consists on four major steps:
 * Feature Engineering - (50\%)
 * Machine Leaning - (20\%)
 
+
+.. image:: images/pipeline.png
+   :align: center
+   :width: 550
+
+
 .. admonition:: Notice
 
    In these items, we introduced the usual percentage of the work amount usually taken for 

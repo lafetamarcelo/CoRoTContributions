@@ -280,12 +280,7 @@ at <a class="reference external" href="http://idoc-corot.ias.u-psud.fr/sitools/c
 where it contains files in a <em>.fits</em> format. Those are pretty common in the
 astronomical whereabouts, but not for the machine learning public. In each <em>.fits</em>
 file, we will have a light curve time series for a particular CoRoT observation.
-All observations will have the white light intensity, some will have the RGB, but all
-will have the white light intensity along the observation time.</p>
-<p>Those time series, are not the light intensity provided by the observed exo-planet, but
-actually, the light intensity emission of the star in which the supposed exo-planet is
-orbiting around. Notice, that we have the Transit photometry information for this
-particular exo-planet.</p>
+All observations will have the white light intensity, some will have the RGB.</p>
 <p>Therefore, we are talking about using the transit photometry time series to classify if
 in this particular observation there is a chance for the observation be one of an exo-planet,
 or something else. As an illustration, one will have time-series data, that will contain
@@ -300,10 +295,11 @@ of an exo-planet.</p>
 <p>The preprocessing pipeline consists on four major steps:</p>
 <ul class="simple">
 <li><p>Getting the data - (10%)</p></li>
-<li><p>Reading in Python - (20%)</p></li>
+<li><p>Preprocessing in Python - (20%)</p></li>
 <li><p>Feature Engineering - (50%)</p></li>
 <li><p>Machine Leaning - (20%)</p></li>
 </ul>
+<a class="reference internal image-reference" href="_images/pipeline.png"><img alt="_images/pipeline.png" class="align-center" src="_images/pipeline.png" style="width: 550px;" /></a>
 <div class="admonition-notice admonition">
 <p class="admonition-title">Notice</p>
 <p>In these items, we introduced the usual percentage of the work amount usually taken for
@@ -423,7 +419,6 @@ from my google drive, or in the direct download link:</p>
 <p>The files are something close to tens of GB. Since it contains all the raw fits files
 for the three classes (bright stars, red giants, confirmed targets and eclipsing binaries).</p>
 </div>
-<p>—</p>
 <a class="reference internal image-reference" href="_images/progress_two.png"><img alt="_images/progress_two.png" src="_images/progress_two.png" style="width: 800px;" /></a>
 <p>After getting the data from the online repositories, we need to transform this data into data
 structures more python friendly, such as dictionaries, lists, arrays, or into files with more
@@ -446,7 +441,6 @@ feature engineering step, just to show the user the importance to understand the
 with an information extraction practical example. Showing that a simple filtering technique can enable access
 to several other pieces of information. And by that, engaging the user to see the next step of the pipeline,
 which will have several other feature engineering techniques.</p>
-<hr class="docutils" />
 <a class="reference internal image-reference" href="_images/progress_three.png"><img alt="_images/progress_three.png" src="_images/progress_three.png" style="width: 800px;" /></a>
 <p>The feature engineering process is the part that takes most work in a machine learning project. It is the
 part where one must extract meaningful information from the data to provide for the machine learning
@@ -494,7 +488,6 @@ its scope, to check if the topic’s classification also can be applied to time 
 about any one of them. A more detailed description will be presented in the Feature Engineering step
 of the documentation.</p>
 </div>
-<p>—</p>
 <a class="reference internal image-reference" href="_images/progress_four.png"><img alt="_images/progress_four.png" src="_images/progress_four.png" style="width: 800px;" /></a>
 <p>The machine learning step of the pipeline, does nothing much more than the basics machine learning procedures
 once the time series static information is provided. From the last step, simple features where build from the
@@ -604,57 +597,15 @@ that the XGBoost algorithm, was able to provide a <strong>93%</strong> accuracy 
 <p class="caption"><span class="caption-text">Machine Learning</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html">XGBoost Classifier</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#Periodograms">Periodograms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#Manipulate-features">Manipulate features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#Train-test-data-split">Train-test data split</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#Hyper-tunning">Hyper tunning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#Train-model">Train model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#Results">Results</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#Naive-Bayes-likelihood">Naive Bayes likelihood</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#id1">Manipulate features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#id2">Train-test data split</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#id3">Hyper tunning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#id4">Train model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#id5">Results</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#Hidden-Markov-Models">Hidden Markov Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#id7">Manipulate features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#id8">Train-test data split</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#id9">Hyper tunning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#id10">Train model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#id11">Results</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#Periodograms">Periodograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#Naive-Bayes-likelihood">Naive Bayes likelihood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - XGBoost Classifier.html#Hidden-Markov-Models">Hidden Markov Models</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html">Decision trees</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#Periodograms">Periodograms</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#Manipulate-features">Manipulate features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#Train-test-data-split">Train-test data split</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#Hyper-tunning">Hyper tunning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#Train-model">Train model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#Results">Results</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#Naive-Bayes-likelihood">Naive Bayes likelihood</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#id1">Manipulate features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#id2">Train-test data split</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#id3">Hyper tunning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#id4">Train model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#id5">Results</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#Hidden-Markov-Models">Hidden Markov Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#id7">Manipulate features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#id8">Train-test data split</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#id9">Hyper tunning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#id10">Train model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#id11">Results</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#Periodograms">Periodograms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#Naive-Bayes-likelihood">Naive Bayes likelihood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03 - Machine Learning - Decision Trees.html#Hidden-Markov-Models">Hidden Markov Models</a></li>
 </ul>
 </li>
 </ul>
@@ -663,13 +614,7 @@ that the XGBoost algorithm, was able to provide a <strong>93%</strong> accuracy 
 <p class="caption"><span class="caption-text">Code APIs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">CoRoT Contributions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">utils Package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils">Intro</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.data_helper">Data helper</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.data_struc">Data structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#module-utils.visual">Visualization</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils Package</a></li>
 </ul>
 </li>
 </ul>
