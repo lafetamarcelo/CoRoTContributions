@@ -116,6 +116,12 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">CoRoT Contributions</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Authors</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="author/vanderlei.html">Vanderlei Cunha Parro </a></li>
+<li class="toctree-l1"><a class="reference internal" href="author/marcelo.html">Marcelo Mendes Lafetá Lima </a></li>
+<li class="toctree-l1"><a class="reference internal" href="author/roberto.html">Roberto Bertoldo Menezes </a></li>
+</ul>
 
             
           
@@ -205,6 +211,7 @@
 </style>
 <div class="section" id="welcome-to-corot-contribution-s-documentation">
 <h1>Welcome to CoRoT Contribution’s documentation!<a class="headerlink" href="#welcome-to-corot-contribution-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://readthedocs.org/projects/corot-contributions/"><img alt="Documentation Status" src="https://readthedocs.org/projects/corot-contributions/badge/?version=latest" /></a> <a class="reference external" href="https://github.com/lafetamarcelo/CoRoTContributions/"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/lafetamarcelo/CoRoTContributions" /></a> <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/lafetamarcelo/CoRoTContributions" /> <a class="reference external" href="https://discord.gg/EenaYE5"><img alt="Join discussion Discord" src="https://img.shields.io/discord/713442259210600448?label=join%20discord" /></a></p>
 <p>Here the summary results and developments of the project called A Data Analysis Pipeline
 for the CoRoT Light Curve Data, supported by NSEE and FAPESP. The pipeline major three
 specific topics that will allow any user with basic knowledge in Python to reproduce the
@@ -416,6 +423,7 @@ from my google drive, or in the direct download link:</p>
 <p>The files are something close to tens of GB. Since it contains all the raw fits files
 for the three classes (bright stars, red giants, confirmed targets and eclipsing binaries).</p>
 </div>
+<p>—</p>
 <a class="reference internal image-reference" href="_images/progress_two.png"><img alt="_images/progress_two.png" src="_images/progress_two.png" style="width: 800px;" /></a>
 <p>After getting the data from the online repositories, we need to transform this data into data
 structures more python friendly, such as dictionaries, lists, arrays, or into files with more
@@ -486,6 +494,7 @@ its scope, to check if the topic’s classification also can be applied to time 
 about any one of them. A more detailed description will be presented in the Feature Engineering step
 of the documentation.</p>
 </div>
+<p>—</p>
 <a class="reference internal image-reference" href="_images/progress_four.png"><img alt="_images/progress_four.png" src="_images/progress_four.png" style="width: 800px;" /></a>
 <p>The machine learning step of the pipeline, does nothing much more than the basics machine learning procedures
 once the time series static information is provided. From the last step, simple features where build from the
@@ -534,6 +543,15 @@ the common machine learning pipeline.</p>
 more detailed description of each machine learning approach can be found on its respective chapter of the
 documentation, with application example.</p>
 </div>
+</div>
+<div class="section" id="some-results">
+<h2>Some results…<a class="headerlink" href="#some-results" title="Permalink to this headline">¶</a></h2>
+<p>To show the capability of the approach presented, checkout the some of the best results obtained with the XGBoost
+Classifier algorithm:</p>
+<a class="reference internal image-reference" href="_images/xgb_results.png"><img alt="_images/xgb_results.png" class="align-center" src="_images/xgb_results.png" style="width: 300px;" /></a>
+<p>In this figure, the confusion matrix of the classifier predictions for the testing dataset is presented. Notice
+that the XGBoost algorithm, was able to provide a <strong>93%</strong> accuracy on <strong>exoplanet labels</strong>, and <strong>83%</strong> on the
+<strong>eclipsing binaries</strong>, as shown by the above confusion matrix.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Reading and Plotting</span></p>
 <ul>
@@ -656,7 +674,23 @@ documentation, with application example.</p>
 </li>
 </ul>
 </div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Authors</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="author/vanderlei.html">Vanderlei Cunha Parro </a></li>
+<li class="toctree-l1"><a class="reference internal" href="author/marcelo.html">Marcelo Mendes Lafetá Lima </a></li>
+<li class="toctree-l1"><a class="reference internal" href="author/roberto.html">Roberto Bertoldo Menezes </a></li>
+</ul>
 </div>
+<h3 style="text-align:center;">
+   <iframe
+      src="https://discordapp.com/widget?id=713442259210600448&theme=dark"
+      width="500"
+      height="300"
+      allowtransparency="true"
+      frameborder="0"
+   ></iframe>
+</h3></div>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>

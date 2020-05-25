@@ -6,6 +6,8 @@
 Welcome to CoRoT Contribution's documentation!
 ================================================
 
+|docs| |last commit| |most used lang| |join discord|
+
 
 Here the summary results and developments of the project called A Data Analysis Pipeline 
 for the CoRoT Light Curve Data, supported by NSEE and FAPESP. The pipeline major three 
@@ -239,6 +241,8 @@ It is advised to keep a database folder following the structure::
    The files are something close to tens of GB. Since it contains all the raw fits files
    for the three classes (bright stars, red giants, confirmed targets and eclipsing binaries).
 
+---
+
 .. image:: images/progress_two.png
    :width: 800
 
@@ -324,6 +328,7 @@ its scope, to check if the topic's classification also can be applied to time se
    about any one of them. A more detailed description will be presented in the Feature Engineering step 
    of the documentation.
 
+---
 
 .. image:: images/progress_four.png
    :width: 800
@@ -378,6 +383,21 @@ the common machine learning pipeline.
    documentation, with application example.
 
 
+Some results...
+---------------
+
+To show the capability of the approach presented, checkout the some of the best results obtained with the XGBoost 
+Classifier algorithm:
+
+.. image:: images/xgb_results.png
+   :align: center
+   :width: 300
+
+In this figure, the confusion matrix of the classifier predictions for the testing dataset is presented. Notice 
+that the XGBoost algorithm, was able to provide a **93%** accuracy on **exoplanet labels**, and **83%** on the 
+**eclipsing binaries**, as shown by the above confusion matrix.
+
+
 .. toctree::
    :maxdepth: 3
    :caption: Reading and Plotting
@@ -407,9 +427,51 @@ the common machine learning pipeline.
    modules
 
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Authors
+
+   authors
+
+
+.. raw:: html 
+
+   <h3 style="text-align:center;">
+      <iframe 
+         src="https://discordapp.com/widget?id=713442259210600448&theme=dark" 
+         width="500" 
+         height="300"
+         allowtransparency="true" 
+         frameborder="0"
+      ></iframe>
+   </h3>
+
 
 Indices and tables
 ==================
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+
+
+
+.. |join discord| image:: https://img.shields.io/discord/713442259210600448?label=join%20discord
+   :alt: Join discussion Discord
+   :target: https://discord.gg/EenaYE5
+
+.. |join slack| image:: https://img.shields.io/badge/join%20slack-%23nsee-brightgreen.svg 
+   :alt: Join discussion Slack
+   :target: https://nseecorot.slack.com/archives/C013Q9068NB
+
+.. |most used lang| image:: https://img.shields.io/github/languages/top/lafetamarcelo/CoRoTContributions  
+   :alt: GitHub top language
+
+.. |last commit| image:: https://img.shields.io/github/last-commit/lafetamarcelo/CoRoTContributions   
+   :alt: GitHub last commit
+   :target: https://github.com/lafetamarcelo/CoRoTContributions/
+
+.. |docs| image:: https://readthedocs.org/projects/corot-contributions/badge/?version=latest
+   :alt: Documentation Status
+   :target: https://readthedocs.org/projects/corot-contributions/
