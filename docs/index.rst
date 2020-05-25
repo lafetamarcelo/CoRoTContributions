@@ -110,7 +110,7 @@ Pipeline
 The preprocessing pipeline consists on four major steps:
 
 * Getting the data - (10\%)
-* Reading in Python - (20\%)
+* Preprocessing in Python - (20\%)
 * Feature Engineering - (50\%)
 * Machine Leaning - (20\%)
 
